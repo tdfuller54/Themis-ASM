@@ -10,7 +10,7 @@ rule download_busco:
     shell:
         """
         touch empty.fa
-        busco -l {params.lineage} -i empty.fa -o test -f
+        busco -l {params.lineage} -i empty.fa -o test -m genome -f
         rm empty.fa
         """
 
