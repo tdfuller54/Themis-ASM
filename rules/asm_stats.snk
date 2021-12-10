@@ -9,10 +9,9 @@ rule download_busco:
         lineage = config["buscoLineage"]
     shell:
         """
-        https://busco-data.ezlab.org/v5/data/lineages/mammalia_odb10.2021-02-19.tar.gz
-        touch empty.fa
-        busco -l {params.lineage} -i empty.fa -o test -m genome -f
-        rm empty.fa
+        wget https://busco-data.ezlab.org/v5/data/lineages/mammalia_odb10.2021-02-19.tar.gz \
+        --no-check-certificate
+        tar -xvzf mammalia_odb10.2021-02-19.tar.gz
         """
 
 rule run_busco:
