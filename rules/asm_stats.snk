@@ -1,3 +1,5 @@
+#-r -nd -l1 -np tell wget to not recursively load all files
+#and not to make a hierarchy of directories
 rule download_busco:
     output:
         directory("busco_downloads/lineages/{}".format(config["buscoLineage"]))
@@ -9,9 +11,14 @@ rule download_busco:
         lineage = config["buscoLineage"]
     shell:
         """
-        wget https://busco-data.ezlab.org/v5/data/lineages/mammalia_odb10.2021-02-19.tar.gz \
+        mkdir busco_downloads
+        mkdir busco_downloads/lineages
+        cd busco_downloads/lineages
+        wget -r -nd -l1 -np -A "{params.lineage}.*.tar.gz" \
+        https://busco-data.ezlab.org/v5/data/lineages/ \
         --no-check-certificate
-        tar -xvzf mammalia_odb10.2021-02-19.tar.gz
+        tar -xvzf {params.lineage}.*.tar.gz
+        rm -r {params.lineage}.*.tar.gz
         """
 
 rule run_busco:
