@@ -3,6 +3,7 @@
 rule download_busco:
     output:
         directory("busco_downloads/lineages/{}".format(config["buscoLineage"]))
+        touch("busco_download.done")
     log:
         "logs/download_busco.log"
     conda:
@@ -24,7 +25,8 @@ rule download_busco:
 rule run_busco:
     input:
         "busco_downloads/lineages/{}".format(config["buscoLineage"]),
-        "fastas/{asm}.fa"
+        "fastas/{asm}.fa",
+        "busco_download.done"
     output:
         protected("busco/{asm}/busco_summary.txt")
     log:

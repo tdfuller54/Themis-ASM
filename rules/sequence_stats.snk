@@ -60,7 +60,7 @@ rule merge_bams:
 
 rule freebayes:
     input:
-        ref=lambda wildcards: config["assembly"][wildcards.asm],
+        ref="fastas/{asm}.fa",
         samples="mapped/{asm}/merged.bam",
         indexes="mapped/{asm}/merged.bam.bai"
     output:
