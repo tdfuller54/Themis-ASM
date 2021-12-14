@@ -12,8 +12,7 @@ rule download_busco:
         lineage = config["buscoLineage"]
     shell:
         """
-        mkdir busco_downloads
-        mkdir busco_downloads/lineages
+        mkdir -p busco_downloads/lineages
         cd busco_downloads/lineages
         wget -r -nd -l1 -np -A "{params.lineage}.*.tar.gz" \
         https://busco-data.ezlab.org/v5/data/lineages/ \
