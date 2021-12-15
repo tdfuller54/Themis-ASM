@@ -18,12 +18,12 @@ assert lineage is not None, "please input the path to a lineage for busco assess
 # busco does not allow you to direct output location: handle this by moving output
 outdir = path.dirname(snakemake.output[0])
 out_name = "btemp_" + snakemake.params.get("asm", "t")
-
+##Add --offline and --download_path to temporarily get it to bypass trying to go online
 # note: --force allows snakemake to handle rewriting files as necessary
 # without needing to specify *all* busco outputs as snakemake outputs
 shell(
-    "busco --in {snakemake.input[1]} --out {out_name} --force "
-    " --cpu {snakemake.threads} --mode {mode} --lineage {lineage} "
+    "busco --in {snakemake.input[1]} --out {out_name} --force --offline"
+    " --cpu {snakemake.threads} --mode {mode} --lineage {lineage} --download_path {snakemake.input[0]} "
     " {extra} {log}"
 )
 
