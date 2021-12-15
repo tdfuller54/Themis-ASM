@@ -22,7 +22,7 @@ rule download_busco:
 
 rule run_busco:
     input:
-        "busco_downloads/lineages/{}".format(config["buscoLineage"]),
+        "busco_downloads/",
         "fastas/{asm}.fa"
     output:
         protected("busco/{asm}/busco_summary.txt")
