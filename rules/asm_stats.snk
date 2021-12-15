@@ -17,7 +17,7 @@ rule download_busco:
         wget -r -nd -l1 -np -A "{params.lineage}.*.tar.gz" \
         https://busco-data.ezlab.org/v5/data/lineages/ \
         --no-check-certificate
-        tar -xvzf {params.lineage}.*.tar.gz
+        tar -xvzf {params.lineage}.*.tar.gz;
         rm -r {params.lineage}.*.tar.gz
         """
 
