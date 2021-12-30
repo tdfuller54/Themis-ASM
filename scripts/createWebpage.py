@@ -208,7 +208,9 @@ def main(args, parser):
         sys.exit()
 
     # Create the main index html
+    ##indexMD defined below adds iteratively goes through adding in each element of the html page
     mdlines = indexMd(args.fasta, args.assembly, args.combos, args.final)
+    ##This uses markdown and jinja2 to somehow easily generate the the final formatted html code
     createHtml(''.join(mdlines), "Themis-ASM Summary", args.output + ".html")
 
     # Now create sub htmls for comparison plots
@@ -220,6 +222,7 @@ def main(args, parser):
     # We should be done!
     print("Finished!")
 
+#Same as indexMD below but specific to multiple comparisons webpage
 def compMd(combo, assemblies, outbase, finalfolder):
     fname = f'{finalfolder}/sum{combo}.html'
 
