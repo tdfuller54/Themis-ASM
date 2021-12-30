@@ -294,7 +294,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '---', '#### Busco score plots',
                     f'![BUSCO category plots]({finalfolder}/combined_buscos.png#regular)',
                     '---', '#### Assembly Quality Statistics',
-                    'These are statistics derived from the overal continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher QV values, lower error rates, and higher BUSCO scores.'])
+                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher QV values, lower error rates, and higher BUSCO scores.'])
 
     # Process the summary table for later insertion in the md file lines
     # The first string is the asm quality Stats

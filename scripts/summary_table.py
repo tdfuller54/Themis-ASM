@@ -172,6 +172,11 @@ def formatVarWidth(tlist, ccol):
 csepfull = "|" + "|".join([csep + ":" for x in asms]) + "|"
 chyphenfull = "|" + "|".join([csep + "-" for x in asms]) + "|"
 
+
+##These are used to separate the summary table
+##for parsing in the webpage it seems
+##Could possibly edit below to simply break up table
+##for more tables in webpage
 alignstr = '|:{}{}:{}|\n'.format(esep, csepfull, dsep)
 sepstr = '--{}{}-{}-\n'.format(esep, chyphenfull, dsep)
 
