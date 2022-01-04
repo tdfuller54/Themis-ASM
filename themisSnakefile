@@ -53,7 +53,7 @@ rule organize:
     input:
         lambda wildcards: config["assembly"][wildcards.asm]
     output:
-        temp("fastas/{asm}.fa")
+        "fastas/{asm}.fa"
     run:
         cmd = ["ln", "-s", input[0], output[0]]
         print(cmd)
