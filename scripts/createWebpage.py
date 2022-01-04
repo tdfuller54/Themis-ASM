@@ -76,6 +76,13 @@ TEMPLATE = """<!DOCTYPE html>
             margin-left: auto;
             margin-right: auto;
         }
+        img[src*="#tiny"]{
+            display: block;
+            width: 5%;
+            height: 5%;
+            margin-left: auto;
+            margin-right: auto;
+        }
         img[src*="#regular"]{
             display: block;
             margin-left: auto;
@@ -248,7 +255,7 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     '---',
                     '## Pairwise kmer spectra plots',
                     f'These plots show the same information as on the main page, but they are stacked side by side for comparison. {assemblies[1]} is the leftmost plot and {assemblies[0]} is the rightmost plot.',
-                    f'![Kmer spectrum plot]({assemblies[1]}.spectra-asm.st.png) ![Kmer spectrum plot]({assemblies[0]}.spectra-asm.st.png)',
+                    f'![Kmer spectrum plot]({assemblies[1]}.spectra-asm.st.png#tiny) ![Kmer spectrum plot]({assemblies[0]}.spectra-asm.st.png#tiny)',
                     '---',
                     '## Pairwise ideogram error plots',
                     f'These plots show the same information as on the main page, but they are stacked side by side for comparison. {assemblies[1]} is the leftmost plot and {assemblies[0]} is the rightmost plot.',
