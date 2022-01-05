@@ -182,10 +182,12 @@ sepstr = '--{}{}-{}-\n'.format(esep, chyphenfull, dsep)
 
 with open(snakemake.output["table"], 'w') as out:
     # First QV Scores
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Q Scores", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+
+    #Break up table into more subtables for input into webpage
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Summary Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
-    for i in ["CtgNum", "TotBases", "ContigN50", "merQV", "merErrorRate", "merCompleteness", "baseQV", "unmap%", "COMPLETESC", "COMPLETEDUP", "FRAGMENT", "MISSING"]:
+    for i in ["CtgNum", "TotBases", "ContigN50"]:
         nsubs = elines[i]
         d = descriptions[i].split('\n')
         out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format(i, formatVarWidth(solid[i], ccol), d[0], ecol= ecol, dcol=dcol))
@@ -193,9 +195,41 @@ with open(snakemake.output["table"], 'w') as out:
         for j in range(nsubs):
             out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("", formatVarWidth(["" for x in asms], ccol), d[j+1], ecol= ecol, dcol=dcol))
 
-    print("Done with QV")
-    # Next FRC
     out.write(sepstr)
+    print("Done with Summary Stats")
+
+    #kmer Q scores
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Kmer-based Q Scores", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write(alignstr)
+
+    for i in ["merQV", "merErrorRate", "merCompleteness", "baseQV", "unmap%"]:
+        nsubs = elines[i]
+        d = descriptions[i].split('\n')
+        out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format(i, formatVarWidth(solid[i], ccol), d[0], ecol= ecol, dcol=dcol))
+        # Writing out what's left of the Description Line
+        for j in range(nsubs):
+            out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("", formatVarWidth(["" for x in asms], ccol), d[j+1], ecol= ecol, dcol=dcol))
+
+    out.write(sepstr)
+    print("Done with kmer Q scores")
+
+    #Busco Scores
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Busco SCG Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write(alignstr)
+
+    for i in ["COMPLETESC", "COMPLETEDUP", "FRAGMENT", "MISSING"]:
+        nsubs = elines[i]
+        d = descriptions[i].split('\n')
+        out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format(i, formatVarWidth(solid[i], ccol), d[0], ecol= ecol, dcol=dcol))
+        # Writing out what's left of the Description Line
+        for j in range(nsubs):
+            out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("", formatVarWidth(["" for x in asms], ccol), d[j+1], ecol= ecol, dcol=dcol))
+
+    out.write(sepstr)
+    print("Done with busco scores")
+
+
+    # Next FRC
     out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Features", formatVarWidth(asms, ccol), "Description", ecol= ecol, ccol = ccol, dcol=dcol))
     out.write(alignstr)
 
