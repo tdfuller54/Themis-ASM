@@ -184,7 +184,7 @@ with open(snakemake.output["table"], 'w') as out:
     # First QV Scores
 
     #Break up table into more subtables for input into webpage
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Summary Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
     for i in ["CtgNum", "TotBases", "ContigN50"]:
@@ -199,7 +199,7 @@ with open(snakemake.output["table"], 'w') as out:
     print("Done with Summary Stats")
 
     #kmer Q scores
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Kmer-based Q Scores", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("QV Scores", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
     for i in ["merQV", "merErrorRate", "merCompleteness", "baseQV", "unmap%"]:
@@ -214,7 +214,7 @@ with open(snakemake.output["table"], 'w') as out:
     print("Done with kmer Q scores")
 
     #Busco Scores
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Busco SCG Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Busco Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
     for i in ["COMPLETESC", "COMPLETEDUP", "FRAGMENT", "MISSING"]:
