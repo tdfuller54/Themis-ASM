@@ -184,7 +184,7 @@ with open(snakemake.output["table"], 'w') as out:
     # First QV Scores
 
     #Break up table into more subtables for input into webpage
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Stats", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
     for i in ["CtgNum", "TotBases", "ContigN50"]:
