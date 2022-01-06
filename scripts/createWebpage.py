@@ -101,8 +101,7 @@ TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-TABLE = """<!DOCTYPE html>
-<html>
+TABLE = """
 <head>
     <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
     <style>
@@ -171,12 +170,11 @@ TABLE = """<!DOCTYPE html>
         }
     </style>
 </head>
-<body>
+
 <div class="container">
 {{content}}
 </div>
-</body>
-</html>
+
 """
 
 
@@ -312,9 +310,12 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     "## Assembly summary statistics",
                     '<br>'
                     'This table gives general statistics for estimating assembly quality. The NG(X) Plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
-                    '|   | NG(X) plot |',
-                    '|:---:|:---:|',
-                    '| ' + testHtml(tablines[0]) + ' | ' + f'![NG(x) plot of all assemblies]({finalfolder}/combined_ngx_plot.png#regular)' + ' |',
+                    '<table>',
+                    '<tr>',
+                    '<td> ' + testHtml(tablines[0]) + ' </td>',
+                    '<td> ' + f'<img src="{finalfolder}/combined_ngx_plot.png#half" alt="NG(x) plot of all assemblies">' + ' </td>',
+                    '</tr>',
+                    '</table>',
                     '---',
                     '<a name="asmqual"></a>',
                     '## Assembly quality comparisons',
