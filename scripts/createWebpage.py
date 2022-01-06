@@ -275,34 +275,22 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     #mdlines.append('<p id="pex">')
     mdlines.append('---')
     mdlines.append('## Table of Contents')
-    mdlines.extend(['* [Assembly quality comparison](#asmqual)',
+    mdlines.extend(['* [Assembly summary statistics](#asmsum)',
+                    '* [Assembly quality comparison](#asmqual)',
                     '* [Assembly feature comparisons](#asmfeat)',
                     '* [Assembly kmer comparisons](#asmkmer)',
                     '* [Assembly error windows](#asmwin)',
                     '* [Assembly comparisons](#asmcomp)',
-#                    '</p>',
-#                    '<p id="pex">',
-                    '---',
-                    '<a name="asmqual"></a>',
-                    '## Assembly quality comparisons',
-                    '<br>',
-                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
                     '---',
                     '#### Assemblies',
                     'Here are the assemblies being compared, along with their short-hand labels'])
 
     for f, a in zip(fastas, assemblies):
         mdlines.append(f'>{a}:\t\t{f}<br><br>')
+#                    '</p>',
+#                    '<p id="pex">',
 
-    mdlines.extend(['---', '#### NG(X) plot',
-                    'This is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
-                    #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
-                    f'![NG(x) plot of all assemblies]({finalfolder}/combined_ngx_plot.png#regular)',
-                    '---', '#### Busco score plots',
-                    f'![BUSCO category plots]({finalfolder}/combined_buscos.png#regular)',
-                    '---', '#### Assembly Quality Statistics',
-                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher QV values, lower error rates, and higher BUSCO scores.'])
-
+    #moved up to parse and just have it done and ready
     # Process the summary table for later insertion in the md file lines
     # The first string is the asm quality Stats
     # The second is the feature statistics
@@ -319,7 +307,30 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                 #l, _ = re.subn(':', '-', l)
                 tablines[-1] += l
 
-    mdlines.append(testHtml(tablines[0]))
+    mdlines.extend(['---',
+                    '<a name="asmsum"></a>',
+                    "## Assembly summary statistics",
+                    '<br>'
+                    'This table gives general statistics for estimating assembly quality. The NG(X) Plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
+                    '|   | NG(X) plot |',
+                    '|:---:|:---:|',
+                    '| ' + testHtml(tablines[0]) + ' | ' + f'![NG(x) plot of all assemblies]({finalfolder}/combined_ngx_plot.png#regular)' + ' |',
+                    '---',
+                    '<a name="asmqual"></a>',
+                    '## Assembly quality comparisons',
+                    '<br>',
+                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.'])
+
+
+    mdlines.extend(['---',
+                    #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
+                    f'',
+                    '---', '#### Busco score plots',
+                    f'![BUSCO category plots]({finalfolder}/combined_buscos.png#regular)',
+                    '---', '#### Assembly Quality Statistics',
+                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher QV values, lower error rates, and higher BUSCO scores.'])
+
+
 
     mdlines.extend(['---',
 #                    '<p id="pex">',
