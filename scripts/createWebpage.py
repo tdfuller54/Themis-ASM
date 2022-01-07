@@ -170,11 +170,9 @@ TABLE = """
         }
     </style>
 </head>
-
 <div class="container">
 {{content}}
 </div>
-
 """
 
 
@@ -310,11 +308,17 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     "## Assembly summary statistics",
                     '<br>'
                     'This table gives general statistics for estimating assembly quality. The NG(X) Plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
-                    '<table>',
+                    '<table style="width: 100%">',
+                    '<colgroup>',
+                    '<col span="1" style="width: 50%;">',
+                    '<col span="1" style="width: 50%;">',
+                    '</colgroup>',
+                    '<tbody>',
                     '<tr>',
                     '<td> ' + testHtml(tablines[0]) + ' </td>',
                     '<td> ' + f'<img src="{finalfolder}/combined_ngx_plot.png#half" alt="NG(x) plot of all assemblies">' + ' </td>',
                     '</tr>',
+                    '</tbody>',
                     '</table>',
                     '---',
                     '<a name="asmqual"></a>',
