@@ -313,7 +313,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     #'<div style="float:left;">',
                     #f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies" style="margin-left:15%;bottom:0">' + ' </div>',
                     #'</div>',
-                    '<table style="width: 100%">',
+                    '<table style="width: 100%;border: none;">',
                     '<colgroup>',
                     '<col span="1" style="width: 50%">',
                     '<col span="1" style="width: 50%">',
