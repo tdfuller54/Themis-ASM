@@ -42,7 +42,7 @@ TEMPLATE = """<!DOCTYPE html>
             border-width: 2px 6px 12px 18px;
         }
         table {
-            width: 50%;
+            width: 100%;
             border: 1px solid #000000;
             border-collapse: collapse;
         }
@@ -313,8 +313,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<table>',
                     '<tr>',
                     '<td> ' + testHtml(tablines[0]) + ' </td>',
-                    '<td> ' + '<h4 align="center">NG(X) Plot</h4>',
-                    f'<img src="{finalfolder}/combined_ngx_plot.png#half" alt="NG(x) plot of all assemblies">' + ' </td>',
+                    '<td> ' + '<h4 align="center">NG(X) Plot</h4>' + f'<img src="{finalfolder}/combined_ngx_plot.png#half" alt="NG(x) plot of all assemblies">' + ' </td>',
                     '</tr>',
                     '</table>',
                     '---',
