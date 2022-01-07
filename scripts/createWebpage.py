@@ -170,9 +170,7 @@ TABLE = """
         }
     </style>
 </head>
-<div class="container">
 {{content}}
-</div>
 """
 
 
