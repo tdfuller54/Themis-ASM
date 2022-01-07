@@ -141,6 +141,7 @@ TABLE = """
         }
         table tbody td {
             font-size: 13 px;
+            font-weight: normal;
         }
         table tr:nth-child(even){
             background: #D0E4F5;
