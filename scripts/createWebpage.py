@@ -129,7 +129,7 @@ TABLE = """
             border-width: 2px 6px 12px 18px;
         }
         table {
-            width: 100%;
+            width: 50%;
             border: 1px solid #000000;
             border-collapse: collapse;
         }
