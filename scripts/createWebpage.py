@@ -348,9 +348,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.append(testHtml(tablines[1]))
 
-#######
-#######
-####### Pick up here.
+
     mdlines.extend(['---',
 #                    '<p id="pex">',
                     '<a name="asmfeat"></a>',
@@ -358,18 +356,29 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<br>',
                     'These statistics represent smaller scale variants detected from the alignment of reads to the assembly.',
                     '---', '#### Feature Response Curves',
-                    'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
-                    #f'<embed src="{finalfolder}/combined_frc_plot.pdf" type="application/pdf" width="100%" height="600px" />',
-                    f'![Feature response curve]({finalfolder}/combined_frc_plot.png#regular)',
-                    '---', '#### Feature Statistics',
-                    'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
+                    '<table style="width: 100%;border: none;">',
+                    '<colgroup>',
+                    '<col span="1" style="width: 50%">',
+                    '<col span="1" style="width: 50%">',
+                    '</colgroup>',
+                    '<tr style="border: none;">',
+                    '<td style="border: none;font-weight: normal;"> <p> The errors below were used to generate the Feature Response Curve for each assembly shown on the right. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better. </p> </td>',
+                    '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_frc_plot.png" alt="Feature Response Curve">' + ' </td>',
+                    '</tr>',
+                    '<tr style="border: none;background: transparent;">',
+                    '<td style="border: none;background: transparent;"> ' + testHtml(tablines[3]) + ' </td>',
+                    '</tr>',
+                    '</table>'])
 
 
 
-    mdlines.extend(['---', '#### Structural Variant Statistics',
+    mdlines.extend(['',
+                    '---',
+                    '',
+                    '#### Structural Variant Statistics',
                     'These structural variants represent larger (> 500 bp) potential misassemblies in the assembly. While having more of these variants is a sign of relatively poor quality, there may be a higher than expected count of these variants if the comparison read dataset is from a different individual than the reference individual used in the assembly. Alternatively, high heterozygosity in the sequenced individual can also inflate these statistics.'])
 
-    mdlines.append(testHtml(tablines[2]))
+    mdlines.append(testHtml(tablines[4]))
 
     # Assembly kmer comparison plots
     mdlines.extend(['---',
