@@ -323,10 +323,12 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<tr style="border: none;background: transparent;">',
                     '<td style="border: none;background: transparent;"> ' + testHtml(tablines[0]) + ' </td>',
                     '</tr>',
-                    '</table>'])
+                    '</table>',
+                    ''])
 
 
-    mdlines.extend(['<hr>',
+    mdlines.extend(['---',
+                    '',
                     '<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
