@@ -305,7 +305,6 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     mdlines.extend(['---',
                     '<a name="asmsum"></a>',
                     "## Assembly Summary Statistics",
-                    '<br>'
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
@@ -328,9 +327,9 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '---'])
 
 
-    mdlines.extend(['<a name="asmqual"></a>',
+    mdlines.extend(['---',
+                    '<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons',
-                    '<br>',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
                     '<table style="width: 100%;border: none;">',
                     '<colgroup>',
@@ -344,8 +343,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<tr style="border: none;background: transparent;">',
                     '<td style="border: none;background: transparent;"> ' + testHtml(tablines[2]) + ' </td>',
                     '</tr>',
-                    '</table>',
-                    '---'])
+                    '</table>',])
 
     mdlines.append(testHtml(tablines[1]))
 
