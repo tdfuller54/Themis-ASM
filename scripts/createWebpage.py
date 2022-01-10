@@ -304,9 +304,9 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.extend(['---',
                     '<a name="asmsum"></a>',
-                    "## Assembly summary statistics",
+                    "## Assembly Summary Statistics",
                     '<br>'
-                    'This table gives general statistics for estimating assembly quality. The NG(X) Plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
+                    'General statistics regarding assembly quality and continuity. Better assemblies tend to have fewer contigs and greater N50 scores. Plotted are the NG(X) scores for each assembly. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
@@ -323,23 +323,31 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<td style="border: none;"> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
                     '</tr>',
                     '</table>',
-                    '---',
-                    '<a name="asmqual"></a>',
-                    '## Assembly quality comparisons',
-                    '<br>',
-                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.'])
+                    ])
 
 
     mdlines.extend(['---',
+                    '<a name="asmqual"></a>',
+                    '## Assembly Quality Comparisons',
+                    '<br>',
+                    'These are assembly completeness and quality statistics derived from the alignment of reads/kmers to it. Higher BUSCO scores, lower error rates, and higher QV values represent better assemblies.',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
-                    f'',
-                    '---', '#### Busco score plots',
-                    f'![BUSCO category plots]({finalfolder}/combined_buscos.png#regular)',
-                    '---', '#### Assembly Quality Statistics',
-                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher QV values, lower error rates, and higher BUSCO scores.'])
+                    '<table style="width: 100%;border: none;">',
+                    '<colgroup>',
+                    '<col span="1" style="width: 50%">',
+                    '<col span="1" style="width: 50%">',
+                    '</colgroup>',
+                    '<tr style="vertical-align:bottom;border: none;">',
+                    '<td style="border: none;"> ' + testHtml(tablines[2]) + ' </td>',
+                    '<td style="border: none;"> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
+                    '</tr>',
+                    '</table>'])
 
+    mdlines.append(testHtml(tablines[1]))
 
-
+#######
+#######
+####### Pick up here.
     mdlines.extend(['---',
 #                    '<p id="pex">',
                     '<a name="asmfeat"></a>',
@@ -353,7 +361,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '---', '#### Feature Statistics',
                     'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
 
-    mdlines.append(testHtml(tablines[1]))
+
 
     mdlines.extend(['---', '#### Structural Variant Statistics',
                     'These structural variants represent larger (> 500 bp) potential misassemblies in the assembly. While having more of these variants is a sign of relatively poor quality, there may be a higher than expected count of these variants if the comparison read dataset is from a different individual than the reference individual used in the assembly. Alternatively, high heterozygosity in the sequenced individual can also inflate these statistics.'])
