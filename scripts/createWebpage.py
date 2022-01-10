@@ -321,15 +321,14 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<td style="border: none;font-weight: normal;"> <p> General statistics regarding assembly quality and continuity. Better assemblies tend to have fewer contigs and greater N50 scores. Plotted are the NG(X) scores for each assembly. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly. </p> </td>',
                     '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
                     '</tr>',
-                    '<tr style="vertical-align:bottom;border: none;background: transparent;">',
+                    '<tr style="border: none;background: transparent;">',
                     '<td style="border: none;background: transparent;"> ' + testHtml(tablines[0]) + ' </td>',
                     '</tr>',
                     '</table>',
-                    ])
+                    '---'])
 
 
-    mdlines.extend(['---',
-                    '<a name="asmqual"></a>',
+    mdlines.extend(['<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons',
                     '<br>',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
@@ -343,7 +342,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
                     '</tr>',
                     '<tr style="border: none;background: transparent;">',
-                    '<td style="bottom: 5px;border: none;background: transparent;"> ' + testHtml(tablines[2]) + ' </td>',
+                    '<td style="border: none;background: transparent;"> ' + testHtml(tablines[2]) + ' </td>',
                     '</tr>',
                     '</table>',
                     '---'])
