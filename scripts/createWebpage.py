@@ -306,7 +306,6 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<a name="asmsum"></a>',
                     "## Assembly Summary Statistics",
                     '<br>'
-                    'General statistics regarding assembly quality and continuity. Better assemblies tend to have fewer contigs and greater N50 scores. Plotted are the NG(X) scores for each assembly. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.<br>',
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
@@ -318,9 +317,12 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<col span="1" style="width: 50%">',
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
+                    '<tr style="border: none;">',
+                    '<td style="border: none;"> <p> General statistics regarding assembly quality and continuity. Better assemblies tend to have fewer contigs and greater N50 scores. Plotted are the NG(X) scores for each assembly. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly. </p> </td>',
+                    '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
+                    '</tr>',
                     '<tr style="vertical-align:bottom;border: none;">',
                     '<td style="border: none;"> ' + testHtml(tablines[0]) + ' </td>',
-                    '<td style="border: none;"> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
                     '</tr>',
                     '</table>',
                     ])
@@ -330,18 +332,21 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons',
                     '<br>',
-                    'These are assembly completeness and quality statistics derived from the alignment of reads/kmers to it. Higher BUSCO scores, lower error rates, and higher QV values represent better assemblies.',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
                     '<table style="width: 100%;border: none;">',
                     '<colgroup>',
                     '<col span="1" style="width: 50%">',
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
-                    '<tr style="vertical-align:bottom;border: none;">',
-                    '<td style="border: none;"> ' + testHtml(tablines[2]) + ' </td>',
-                    '<td style="border: none;"> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
+                    '<tr style="border: none;">',
+                    '<td style="border: none;"> <p> These are assembly completeness and quality statistics derived from the alignment of reads/kmers to it. Higher BUSCO scores, lower error rates, and higher QV values represent better assemblies. </p> </td>',
+                    '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
                     '</tr>',
-                    '</table>'])
+                    '<tr style="border: none;">',
+                    '<td style="bottom: 10pxborder: none;"> ' + testHtml(tablines[2]) + ' </td>',
+                    '</tr>',
+                    '</table>',
+                    '---'])
 
     mdlines.append(testHtml(tablines[1]))
 
