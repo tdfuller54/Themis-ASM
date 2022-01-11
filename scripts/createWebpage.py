@@ -273,8 +273,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     mdlines.extend(['* [Assembly summary statistics](#asmsum)',
                     '* [Assembly quality comparison](#asmqual)',
                     '* [Assembly feature comparisons](#asmfeat)',
-                    '* [Assembly kmer comparisons](#asmkmer)',
-                    '* [Assembly error windows](#asmwin)',
+                    '* [Assembly kmer comparisons and error windows](#asmkmererr)',
                     '* [Assembly comparisons](#asmcomp)',
                     '---',
                     '#### Assemblies',
@@ -363,7 +362,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
                     '<tr style="border: none;">',
-                    '<td style="border: none;"> ' + testHtml(tablines[3]) + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + testHtml(tablines[3]) + ' </td>',
                     '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_frc_plot.png" alt="Feature Response Curve">' + ' </td>',
                     '</tr>',
                     '</table>'])
@@ -381,30 +380,28 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     # Assembly kmer comparison plots
     mdlines.extend(['---',
 #                    '<p id="pex">',
-                    '<a name="asmkmer"></a>',
-                    '## Assembly kmer comparisons',
+                    '<a name="asmkmererr"></a>',
+                    '## Assembly Kmer Comparisons and Error Windows',
                     '<br>',
-                    'These plots show differences in kmer composition between the input sequence read file and the assembly itself. Unique kmers to the assembly are on the far left, and Unique kmers in the reads are just right of that. If these are assemblies of diploid organisms, you should see two peaks of kmers corresponding to the heterozygous and homozygous regions of the genome, respectively. Significant deviations or presence of unique kmers in the read dataset can indicate problems in the assembly.'])
+                    'Kmer plots show differences in kmer composition between the input sequence read file and the assembly itself. Unique kmers to the assembly are on the far left, and Unique kmers in the reads are just right of that. If these are assemblies of diploid organisms, you should see two peaks of kmers corresponding to the heterozygous and homozygous regions of the genome, respectively. Significant deviations or presence of unique kmers in the read dataset can indicate problems in the assembly.  ',
+                    'Ideogram error plots identify regions of each assembly that have higher than normal (upper quartile\) counts of errors. Only the top contigs are plotted due to space constraints. In all cases, yellow represents the upper quartile (> 25% of all values\) whereas red represents the upper 5% of all windows.'])
 
     for a in assemblies:
-        mdlines.append('---')
-        mdlines.append(f'#### {a} kmer spectra plot')
+        mdlines.extend(['',
+                       '---',
+                       ''])
+        mdlines.append(f'#### {a} kmer spectra plot and feature density plot for largest contigs')
         #mdlines.append(f'<embed src="{finalfolder}/{a}.spectra-asm.st.pdf" type="application/pdf" width="100%" height="600px" />')
-        mdlines.append(f'![Kmer spectrum plot]({finalfolder}/{a}.spectra-asm.st.png#half)')
-
-    # Assembly error windows
-    mdlines.extend(['---',
-#                    '<p id="pex">',
-                    '<a name="asmwin"></a>',
-                    '## Assembly error windows',
-                    '<br>',
-                    'These are plots of a sliding window analysis to identify regions of each assembly that have higher than normal (upper quartile) counts of errors. Only the top contigs are plotted due to space constraints. In all cases, yellow represents the upper quartile (> 25\% of all values) whereas red represents the upper 5\% of all windows'])
-
-    for a in assemblies:
-        mdlines.append('---')
-        mdlines.append(f'#### {a} ASM feature density on largest contigs')
-        #mdlines.append(f'<embed src="{finalfolder}/ideogram_errors.{a}.pdf" type="application/pdf" width="100%" height="600px" />')
-        mdlines.append(f'![Ideogram error plots]({finalfolder}/ideogram_errors.{a}.png#regular)')
+        mdlines.extend(['<table style="width: 100%;border: none;">',
+                       '<colgroup>',
+                       '<col span="1" style="width: 50%">',
+                       '<col span="1" style="width: 50%">',
+                       '</colgroup>',
+                       '<tr style="border: none;">',
+                       '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                       '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot">' + ' </td>',
+                       '</tr>',
+                       '</table>'])
 
     mdlines.extend(['---',
 #                    '<p id="pex">',
