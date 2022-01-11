@@ -291,7 +291,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     mdlines.extend(['* [Assembly summary statistics](#asmsum)',
                     '* [Assembly quality comparison](#asmqual)',
                     '* [Assembly feature comparisons](#asmfeat)',
-                    '* [Assembly kmer comparisons and error windows](#asmkmererr)',
+                    '* [Assembly error plots](#asmerr)',
                     '* [Assembly comparisons](#asmcomp)',
                     '---',
                     '#### Assemblies',
@@ -398,8 +398,8 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     # Assembly kmer comparison plots
     mdlines.extend(['---',
 #                    '<p id="pex">',
-                    '<a name="asmkmererr"></a>',
-                    '## Assembly Kmer Comparisons and Error Windows',
+                    '<a name="asmerr"></a>',
+                    '## Assembly Error Plots',
                     '<br>',
                     'Kmer plots show differences in kmer composition between the input sequence read file and the assembly itself. Unique kmers to the assembly are on the far left, and Unique kmers in the reads are just right of that. If these are assemblies of diploid organisms, you should see two peaks of kmers corresponding to the heterozygous and homozygous regions of the genome, respectively. Significant deviations or presence of unique kmers in the read dataset can indicate problems in the assembly.  ',
                     'Ideogram error plots identify regions of each assembly that have higher than normal (upper quartile\) counts of errors. Only the top contigs are plotted due to space constraints. In all cases, yellow represents the upper quartile (> 25% of all values\) whereas red represents the upper 5% of all windows.'])
