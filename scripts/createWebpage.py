@@ -398,8 +398,8 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                        '<col span="1" style="width: 50%">',
                        '</colgroup>',
                        '<tr style="border: none;">',
-                       '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
-                       '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot">' + ' </td>',
+                       '<td style="border: none;"> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                       '<td style="border: none;"> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot">' + ' </td>',
                        '</tr>',
                        '</table>'])
 
