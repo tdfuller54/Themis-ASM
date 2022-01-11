@@ -405,7 +405,9 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     'Ideogram error plots identify regions of each assembly that have higher than normal (upper quartile\) counts of errors. Only the top contigs are plotted due to space constraints. In all cases, yellow represents the upper quartile (> 25% of all values\) whereas red represents the upper 5% of all windows.'])
 
     for a in assemblies:
-
+        mdlines.extend(['',
+                       '---',
+                       ''])
         mdlines.append(f'#### {a} kmer spectra plot and feature density plot for largest contigs')
         #mdlines.append(f'<embed src="{finalfolder}/{a}.spectra-asm.st.pdf" type="application/pdf" width="100%" height="600px" />')
         mdlines.extend(['<table style="width: 100%;height: 650px;border: none;">',
@@ -418,11 +420,10 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                        '<td style="text-align:center;border: none;height:650px"> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
                        '</tr>',
                        '</table>'])
-        mdlines.extend(['',
-                       '---',
-                       ''])
 
-    mdlines.extend(['<a name="asmcomp"></a>',
+    mdlines.extend(['---',
+#                    '<p id="pex">',
+                    '<a name="asmcomp"></a>',
                     '## Assembly comparisons',
                     'The following links are to pairwise comparisons of each assembly to the other. These can be informative when comparing one assembly to a reference genome of the same organism. There may also be some value in comparing assemblies between different species or breeds.'])
 
