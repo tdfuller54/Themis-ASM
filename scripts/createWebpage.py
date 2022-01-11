@@ -293,10 +293,6 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '* [Assembly error plots](#asmerr)',
                     '* [Assembly comparisons](#asmcomp)',
                     '---',
-                    '<a name="asmqual"></a>',
-                    '## Assembly Quality Comparisons',
-                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
-                    '---',
                     '#### Assemblies',
                     'Here are the assemblies being compared, along with their short-hand labels'])
 
@@ -323,6 +319,10 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                 tablines[-1] += l
 
     mdlines.extend(['---',
+                    '<a name="asmqual"></a>',
+                    '## Assembly Quality Comparisons', '<br>',
+                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
+                    '---',
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
@@ -360,7 +360,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     mdlines.extend(['---',
 #                    '<p id="pex">',
                     '<a name="asmfeat"></a>',
-                    '---', '## Alignment Feature Comparisons',
+                    '---', '## Alignment Feature Comparisons', '<br>',
                     'These statistics represent smaller scale variants detected from the alignment of reads to the assembly.',
                     '---', '#### Feature Response Curves',
                     'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
