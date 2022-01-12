@@ -248,7 +248,7 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     #f'<embed src="{combo}/vars{combo}.75-1000.pdf" type="application/pdf" width="100%" height="600px" />\n<embed src="{combo}/vars{combo}.1000-500000.pdf" type="application/pdf" width="100%" height="600px" />',
                     f'![Variants from 75 to 1000 bp]({combo}/vars{combo}.75-1000.png) ![Variants from 1000 to 500kb]({combo}/vars{combo}.1000-500000.png)',
                     '---',
-                    '## Pairwise kmer spectra plots',
+                    '## Pairwise Kmer Spectra Plots',
                     f'These plots show the same information as on the main page, but they are stacked side by side for comparison. {assemblies[1]} is the leftmost plot and {assemblies[0]} is the rightmost plot.',
                     '<table style="width: 100%;border: none;">',
                     '<colgroup>',
@@ -256,12 +256,12 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
                     '<tr style="border: none;">',
-                    '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{assemblies[1]}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
-                    '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{assemblies[0]}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{assemblies[1]}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{assemblies[0]}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
                     '</tr>',
                     '</table>',
                     '---',
-                    '## Pairwise ideogram error plots',
+                    '## Pairwise Ideogram Error Plots',
                     f'These plots show the same information as on the main page, but they are stacked side by side for comparison. {assemblies[1]} is the leftmost plot and {assemblies[0]} is the rightmost plot.',
                     '<table style="width: 100%;border: none;">',
                     '<colgroup>',
@@ -269,8 +269,8 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
                     '<tr style="border: none;">',
-                    '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="ideogram_errors.{assemblies[1]}.png" alt="Kmer spectrum plot">' + ' </td>',
-                    '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="ideogram_errors.{assemblies[0]}.png" alt="Kmer spectrum plot">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[1]}.png" alt="Kmer spectrum plot">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[0]}.png" alt="Kmer spectrum plot">' + ' </td>',
                     '</tr>',
                     '</table>',
                     f'##[Return to previous summary page](../{outbase}.html)'])
@@ -288,8 +288,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
     #mdlines.append('<p id="pex">')
     mdlines.append('---')
     mdlines.append('## Table of Contents')
-    mdlines.extend(['* [Assembly summary statistics](#asmsum)',
-                    '* [Assembly quality comparisons](#asmqual)',
+    mdlines.extend(['* [Assembly quality comparisons](#asmqual)',
                     '* [Assembly feature comparisons](#asmfeat)',
                     '* [Assembly error plots](#asmerr)',
                     '* [Assembly comparisons](#asmcomp)',
@@ -320,25 +319,28 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                 tablines[-1] += l
 
     mdlines.extend(['---',
-                    '<a name="asmsum"></a>',
-                    "## Assembly Summary Statistics",
+                    '<a name="asmqual"></a>',
+                    '## Assembly Quality Comparisons', '<br>',
+                    'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
+                    '---',
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
                     #'<div style="float:left;">',
                     #f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies" style="margin-left:15%;bottom:0">' + ' </div>',
                     #'</div>',
+                    '#### NG(X) Plot and BUSCO Score Plots',
+                    'The NG(X\) plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.  ',
+                    '  ',
+                    'BUSCO score plots represent assembly completeness and quality based on the percentage of complete, duplicated, missing, and fragmented SCG\'s for each assembly.'
                     '<table style="width: 100%;border: none;">',
                     '<colgroup>',
                     '<col span="1" style="width: 50%">',
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
                     '<tr style="border: none;">',
-                    '<td style="border: none;font-weight: normal;"> <p> General statistics regarding assembly quality and continuity. Better assemblies tend to have fewer contigs and greater N50 scores. Plotted are the NG(X) scores for each assembly. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly. </p> </td>',
-                    '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
-                    '</tr>',
-                    '<tr style="border: none;background: transparent;">',
-                    '<td style="border: none;background: transparent;"> ' + testHtml(tablines[0]) + ' </td>',
+                    '<td style="border: none;"> ' + '<h4 align="center">NG(X) Comparison Plot</h4> ' + f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies">' + ' </td>',
+                    '<td style="border: none;"> ' + '<h4 align="center">BUSCO Score Plots</h4> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
                     '</tr>',
                     '</table>',
                     ''])
@@ -346,57 +348,39 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.extend(['---',
                     '',
-                    '<a name="asmqual"></a>',
-                    '## Assembly Quality Comparisons',
+                    '#### Assembly Quality Statistics',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
-                    '<table style="width: 100%;border: none;">',
-                    '<colgroup>',
-                    '<col span="1" style="width: 50%">',
-                    '<col span="1" style="width: 50%">',
-                    '</colgroup>',
-                    '<tr style="border: none;">',
-                    '<td style="border: none;font-weight: normal;"> <p> These are assembly completeness and quality statistics derived from the alignment of reads/kmers to it. Higher BUSCO scores, lower error rates, and higher QV values represent better assemblies. </p> </td>',
-                    '<td rowspan="2" style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_buscos.png" alt="BUSCO category plots">' + ' </td>',
-                    '</tr>',
-                    '<tr style="border: none;background: transparent;">',
-                    '<td style="border: none;background: transparent;"> ' + testHtml(tablines[2]) + ' </td>',
-                    '</tr>',
-                    '</table>',])
+                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher BUSCO scores, higher QV values, and lower error rates.'])
 
+    mdlines.append(testHtml(tablines[0]))
+    mdlines.append(testHtml(tablines[2]))
     mdlines.append(testHtml(tablines[1]))
 
 
     mdlines.extend(['---',
 #                    '<p id="pex">',
                     '<a name="asmfeat"></a>',
-                    '---', '## Alignment Feature Comparisons',
-                    '<br>',
+                    '---', '## Alignment Feature Comparisons', '<br>',
                     'These statistics represent smaller scale variants detected from the alignment of reads to the assembly.',
                     '---', '#### Feature Response Curves',
-                    'Calculated features (errors\) and the resulting FRC plot for each assembly. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors. The fewer the number of errors detected, the better. More details are described by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program.',
-                    '<table style="width: 100%;border: none;">',
-                    '<colgroup>',
-                    '<col span="1" style="width: 50%">',
-                    '<col span="1" style="width: 50%">',
-                    '</colgroup>',
-                    '<tr style="border: none;">',
-                    '<td style="vertical-align:bottom;border: none;"> ' + testHtml(tablines[3]) + ' </td>',
-                    '<td style="vertical-align:bottom;border: none;"> ' + f'<img src="{finalfolder}/combined_frc_plot.png" alt="Feature Response Curve">' + ' </td>',
-                    '</tr>',
-                    '</table>'])
+                    'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
+                    '<h4 align="center">FRC Comparison Plot</h4>',
+                    f'![Feature response curve]({finalfolder}/combined_frc_plot.png#regular)',
+                    '---', '#### Feature Statistics',
+                    'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
 
+    mdlines.append(testHtml(tablines[3]))
 
-
-    mdlines.extend(['',
-                    '---',
-                    '',
-                    '#### Structural Variant Statistics',
+    mdlines.extend(['---', '#### Structural Variant Statistics',
                     'These structural variants represent larger (> 500 bp) potential misassemblies in the assembly. While having more of these variants is a sign of relatively poor quality, there may be a higher than expected count of these variants if the comparison read dataset is from a different individual than the reference individual used in the assembly. Alternatively, high heterozygosity in the sequenced individual can also inflate these statistics.'])
 
     mdlines.append(testHtml(tablines[4]))
 
+
     # Assembly kmer comparison plots
-    mdlines.extend(['---',
+    mdlines.extend(['',
+                    '---',
+                    '',
 #                    '<p id="pex">',
                     '<a name="asmerr"></a>',
                     '## Assembly Error Plots',
@@ -416,8 +400,8 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                        '<col span="1" style="width: 50%">',
                        '</colgroup>',
                        '<tr style="border: none;">',
-                       '<td style="border: none;height:650px;"> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
-                       '<td style="text-align:center;border: none;height:650px"> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
+                       '<td style="border: none;height:650px;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                       '<td style="text-align:center;border: none;height:650px"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
                        '</tr>',
                        '</table>'])
 

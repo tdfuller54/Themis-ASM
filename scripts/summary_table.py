@@ -1,6 +1,6 @@
 from collections import defaultdict
-import pysam
-import re
+#import pysam
+#import re
 
 entries = ["CtgNum", "TotBases", "ContigN50",
 "merQV", "merErrorRate", "merCompleteness", "baseQV",
