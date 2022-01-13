@@ -28,7 +28,7 @@ TEMPLATE = """<!DOCTYPE html>
         h6 code {
             font-size: inherit;
         }
-        div.container {
+        div.container-fluid {
             border-style: outset;
         }
         div.sticky {
@@ -94,7 +94,7 @@ TEMPLATE = """<!DOCTYPE html>
 <div class="sticky">
 <h1> {{headtitle}} </h1>
 </div>
-<div class="container">
+<div class="container-fluid">
 {{content}}
 </div>
 </body>
