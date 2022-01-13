@@ -269,8 +269,8 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     '<col span="1" style="width: 50%">',
                     '</colgroup>',
                     '<tr style="border: none;">',
-                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[1]}.png" alt="Kmer spectrum plot">' + ' </td>',
-                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[0]}.png" alt="Kmer spectrum plot">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[1]}.png" alt="Ideogram Error Windows">' + ' </td>',
+                    '<td style="vertical-align:bottom;border: none;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="ideogram_errors.{assemblies[0]}.png" alt="Ideogram Error Windows">' + ' </td>',
                     '</tr>',
                     '</table>',
                     f'##[Return to previous summary page](../{outbase}.html)'])
@@ -283,26 +283,6 @@ def compMd(combo, assemblies, outbase, finalfolder):
     return mdlines
 
 def indexMd(fastas, assemblies, combos, finalfolder):
-    mdlines = list()
-    mdlines.append('# Assembly Report')
-    #mdlines.append('<p id="pex">')
-    mdlines.append('---')
-    mdlines.append('## Table of Contents')
-    mdlines.extend(['* [Assembly quality comparisons](#asmqual)',
-                    '* [Assembly feature comparisons](#asmfeat)',
-                    '* [Assembly error plots](#asmerr)',
-                    '* [Assembly comparisons](#asmcomp)',
-                    '---',
-                    '#### Assemblies',
-                    'Here are the assemblies being compared, along with their short-hand labels'])
-
-    for f, a in zip(fastas, assemblies):
-        mdlines.append(f'>{a}:\t\t{f}<br><br>')
-#                    '</p>',
-#                    '<p id="pex">',
-
-    #moved up to parse and just have it done and ready
-    # Process the summary table for later insertion in the md file lines
     # The first string is the asm quality Stats
     # The second is the feature statistics
     # The last are the structural variants
@@ -317,18 +297,42 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                 #l, _ = re.subn(r'|\n$', '\n', l)
                 #l, _ = re.subn(':', '-', l)
                 tablines[-1] += l
+    mdlines = list()
+    mdlines.append('# Assembly Report')
+    #mdlines.append('<p id="pex">')
+    mdlines.append('---')
+    mdlines.append('## Table of Contents')
+    mdlines.extend(['* [Assembly quality comparisons](#asmqual)',
+                    '* [Assembly error comparisons](#asmerr)',
+                    '* [Assembly feature comparisons](#asmfeat)',
+                    '* [Pairwise assembly comparisons](#asmcomp)',
+                    '---',
+                    '#### Assemblies',
+                    'Here are the assemblies being compared, along with their short-hand labels'])
+
+    for f, a in zip(fastas, assemblies):
+        mdlines.append(f'>{a}:\t\t{f}<br><br>')
+#                    '</p>',
+#                    '<p id="pex">',
+
 
     mdlines.extend(['---',
                     '<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons', '<br>',
                     'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
                     '---',
+                    '#### Assembly Continuity Statistics',
+                    'These are statistics regarding assembly continuity. Better assemblies tend to have fewer contigs and greater N50 scores.'])
+    mdlines.append(testHtml(tablines[0]))
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
                     #testHtml(tablines[0]) + ' </div>',
                     #'<div style="float:left;">',
                     #f'<img src="{finalfolder}/combined_ngx_plot.png" alt="NG(x) plot of all assemblies" style="margin-left:15%;bottom:0">' + ' </div>',
                     #'</div>',
+    mdlines.extend(['',
+                    '---',
+                    '',
                     '#### NG(X) Plot and BUSCO Score Plots',
                     'The NG(X\) plot is a measure of assembly continuity. The dotted line is the 50% mark of the anticipated assembly length. The higher the assembly\'s line is at this point, the more continuous the assembly.  ',
                     '  ',
@@ -348,33 +352,20 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.extend(['---',
                     '',
-                    '#### Assembly Quality Statistics',
+                    '#### BUSCO SCG Scores',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
-                    'These are statistics derived from the overall continuity of the assembly and the alignment of reads/kmers to it. Better assemblies tend to have fewer contigs, higher BUSCO scores, higher QV values, and lower error rates.'])
-
-    mdlines.append(testHtml(tablines[0]))
+                    'These are assembly completeness and quality scores based on the percentage of complete, duplicated, fragmented, and missing SCG\'s from the BUSCO database. Better assemblies should have a higher percentage of complete SCG\'s and lower percentages of duplicated, fragmented, and missing SCG\s.'])
     mdlines.append(testHtml(tablines[2]))
+
+    mdlines.extend(['',
+                    '---',
+                    '',
+                    '<a name="asmerr"></a>',
+                    '## Assembly Error Comparisons', '<br>',
+                    'These statistics reveal potential errors in each assembly utilizing kmer and read alignment.',
+                    '#### Kmer QV Scores',
+                    'These are assembly quality scores derived from the alignment of reads and kmers to the assembly. Higher QV values and lower error rates represent a better assembly.'])
     mdlines.append(testHtml(tablines[1]))
-
-
-    mdlines.extend(['---',
-#                    '<p id="pex">',
-                    '<a name="asmfeat"></a>',
-                    '---', '## Alignment Feature Comparisons', '<br>',
-                    'These statistics represent smaller scale variants detected from the alignment of reads to the assembly.',
-                    '---', '#### Feature Response Curves',
-                    'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
-                    '<h4 align="center">FRC Comparison Plot</h4>',
-                    f'![Feature response curve]({finalfolder}/combined_frc_plot.png#regular)',
-                    '---', '#### Feature Statistics',
-                    'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
-
-    mdlines.append(testHtml(tablines[3]))
-
-    mdlines.extend(['---', '#### Structural Variant Statistics',
-                    'These structural variants represent larger (> 500 bp) potential misassemblies in the assembly. While having more of these variants is a sign of relatively poor quality, there may be a higher than expected count of these variants if the comparison read dataset is from a different individual than the reference individual used in the assembly. Alternatively, high heterozygosity in the sequenced individual can also inflate these statistics.'])
-
-    mdlines.append(testHtml(tablines[4]))
 
 
     # Assembly kmer comparison plots
@@ -382,8 +373,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '---',
                     '',
 #                    '<p id="pex">',
-                    '<a name="asmerr"></a>',
-                    '## Assembly Error Plots',
+                    '#### Assembly Error Plots',
                     'Kmer plots show differences in kmer composition between the input sequence read file and the assembly itself. Unique kmers to the assembly are on the far left, and Unique kmers in the reads are just right of that. If these are assemblies of diploid organisms, you should see two peaks of kmers corresponding to the heterozygous and homozygous regions of the genome, respectively. Significant deviations or presence of unique kmers in the read dataset can indicate problems in the assembly.  ',
                     '  ',
                     'Ideogram error plots identify regions of each assembly that have higher than normal (upper quartile\) counts of errors. Only the top contigs are plotted due to space constraints. In all cases, yellow represents the upper quartile (> 25% of all values\) whereas red represents the upper 5% of all windows.'])
@@ -407,8 +397,27 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.extend(['---',
 #                    '<p id="pex">',
+                    '<a name="asmfeat"></a>',
+                    '---', '## Alignment Feature Comparisons', '<br>',
+                    'These statistics represent smaller scale variants detected from the alignment of reads to the assembly.',
+                    '---', '#### Feature Response Curves',
+                    'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
+                    '<h4 align="center">FRC Comparison Plot</h4>',
+                    f'![Feature response curve]({finalfolder}/combined_frc_plot.png#regular)',
+                    '---', '#### Feature Statistics',
+                    'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
+
+    mdlines.append(testHtml(tablines[3]))
+
+    mdlines.extend(['---', '#### Structural Variant Statistics',
+                    'These structural variants represent larger (> 500 bp) potential misassemblies in the assembly. While having more of these variants is a sign of relatively poor quality, there may be a higher than expected count of these variants if the comparison read dataset is from a different individual than the reference individual used in the assembly. Alternatively, high heterozygosity in the sequenced individual can also inflate these statistics.'])
+
+    mdlines.append(testHtml(tablines[4]))
+
+    mdlines.extend(['---',
+#                    '<p id="pex">',
                     '<a name="asmcomp"></a>',
-                    '## Assembly comparisons',
+                    '## Pairwise Assembly Comparisons',
                     'The following links are to pairwise comparisons of each assembly to the other. These can be informative when comparing one assembly to a reference genome of the same organism. There may also be some value in comparing assemblies between different species or breeds.'])
 
     # Pair wise combination links

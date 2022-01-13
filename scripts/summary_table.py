@@ -214,7 +214,7 @@ with open(snakemake.output["table"], 'w') as out:
     print("Done with kmer Q scores")
 
     #Busco Scores
-    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Busco Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("BUSCO Statistics", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
 
     for i in ["COMPLETESC", "COMPLETEDUP", "FRAGMENT", "MISSING"]:
