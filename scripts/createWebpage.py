@@ -348,7 +348,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     mdlines.extend(['---',
                     '',
-                    '#### BUSCO SCG Scores',
+                    '#### BUSCO Scores',
                     #f'<embed src="{finalfolder}/combined_ngx_plot.pdf" type="application/pdf" width="100%" height="600 px" />',
                     'These are assembly completeness and quality scores based on the percentage of complete, duplicated, fragmented, and missing SCG\'s from the BUSCO database. Better assemblies should have a higher percentage of complete SCG\'s and lower percentages of duplicated, fragmented, and missing SCG\s.'])
     mdlines.append(testHtml(tablines[2]))
@@ -403,7 +403,10 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     'The following plot shows sorted lengths of the assemblies with the fewest errors. A "better" assembly "peaks" further to the left and top of the plot. These metrics do not always correlate with assembly continuity, so an assembly with a higher N50 might not perform as well in these metrics if it has more errors.',
                     '<h4 align="center">FRC Comparison Plot</h4>',
                     f'![Feature response curve]({finalfolder}/combined_frc_plot.png#regular)',
-                    '---', '#### Feature Statistics',
+                    '',
+                    '---',
+                    '',
+                    '#### Feature Statistics',
                     'These are the errors plotted in the above Feature Response Curve image. All errors are defined in more detail by the [FRC_align](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0052210) program. The fewer the number of errors detected, the better.'])
 
     mdlines.append(testHtml(tablines[3]))
