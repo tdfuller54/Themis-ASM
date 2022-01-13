@@ -306,17 +306,13 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '* [Assembly error comparisons](#asmerr)',
                     '* [Assembly feature comparisons](#asmfeat)',
                     '* [Pairwise assembly comparisons](#asmcomp)',
-                    '---',
-                    '#### Assemblies',
-                    'Here are the assemblies being compared, along with their short-hand labels'])
-
-    for f, a in zip(fastas, assemblies):
-        mdlines.append(f'>{a}:\t\t{f}<br><br>')
+                    '',])
 #                    '</p>',
 #                    '<p id="pex">',
 
 
     mdlines.extend(['---',
+                    '',
                     '<a name="asmqual"></a>',
                     '## Assembly Quality Comparisons', '<br>',
                     'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
@@ -362,7 +358,10 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     '',
                     '<a name="asmerr"></a>',
                     '## Assembly Error Comparisons', '<br>',
-                    'These statistics reveal potential errors in each assembly utilizing kmer and read alignment.',
+                    'These statistics represent assembly quality and potential errors utilizing kmer and read alignments.',
+                    '',
+                    '---',
+                    '',
                     '#### Kmer QV Scores',
                     'These are assembly quality scores derived from the alignment of reads and kmers to the assembly. Higher QV values and lower error rates represent a better assembly.'])
     mdlines.append(testHtml(tablines[1]))
@@ -431,6 +430,13 @@ def indexMd(fastas, assemblies, combos, finalfolder):
 
     # Returns a list of all lines in the md file
     return mdlines
+
+
+#'Here are the assemblies being compared, along with their short-hand labels'])
+
+#for f, a in zip(fastas, assemblies):
+#mdlines.append(f'>{a}:\t\t{f}<br><br>')
+
 
 def createHtml(mdlines, title, outfile):
     extensions = ['extra', 'smarty', 'tables']
