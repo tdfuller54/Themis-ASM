@@ -1,6 +1,6 @@
 from collections import defaultdict
-#import pysam
-#import re
+import pysam
+import re
 
 entries = ["CtgNum", "TotBases", "ContigN50",
 "merQV", "merErrorRate", "merCompleteness", "baseQV",
@@ -29,6 +29,7 @@ data = defaultdict(list)
 asms = snakemake.params["asms"]
 fastas = snakemake.params["fastas"]
 print(asms)
+print(fastas)
 
 # Populate stats entries
 for i in snakemake.input["stats"]:
