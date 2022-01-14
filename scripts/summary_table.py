@@ -27,6 +27,7 @@ descriptions = {"CtgNum" : "Number of contigs", "TotBases" : "Assembly length in
 solid = defaultdict(list)
 data = defaultdict(list)
 asms = snakemake.params["asms"]
+fastas = snakemake.params["fastas"]
 print(asms)
 
 # Populate stats entries
@@ -146,6 +147,9 @@ for d in [solid, data]:
 for d in asms:
     ccol = len(d) if len(d) > ccol else ccol
 
+for d in fastas:
+    ccol = len(d) if len(d) > ccol else ccol
+
 ecol += 1
 ccol += 1
 
@@ -186,6 +190,8 @@ with open(snakemake.output["table"], 'w') as out:
     #Break up table into more subtables for input into webpage
     out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Stats", formatVarWidth(asms, ccol), "Description", ecol= ecol, dcol=dcol))
     out.write(alignstr)
+
+    out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Files", formatVarWidth(fastas, ccol), "Path to assembly files", ecol= ecol, dcol=dcol))
 
     for i in ["CtgNum", "TotBases", "ContigN50"]:
         nsubs = elines[i]

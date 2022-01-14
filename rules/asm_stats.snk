@@ -94,6 +94,7 @@ rule summary_table:
         table = "final/summary_table.tab"
     params:
         asms=list(config["assembly"].keys())
+        fastas=list(config["assembly"].values())
     script:
         "../scripts/summary_table.py"
 
