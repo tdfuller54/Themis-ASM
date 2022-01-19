@@ -80,6 +80,34 @@ rule assembly_stats:
     script:
         "../scripts/calcFastaSumStats.py"
 
+rule mask_bed_fasta:
+    input:
+        "fastas/{asm}.fa"
+    output:
+        bed = "mapped/{asm}/gaps.bed",
+        stats = "mapped/{asm}/gaps.stats"
+    conda:
+        "../envs/depth.yaml"
+    log:
+        "logs/gap_bed.{asm}.log"
+    shell:
+        """
+        java -Xmx10g -jar {workflow.basedir}/GetMaskBedFasta/store/GetMaskBedFasta.jar -f {input} -o {output.bed} -s {output.stats} 2> {log}
+        """
+        
+rule contig_gap_stats:
+    input:
+        bed = "mapped/{asm}/gaps.bed",
+        fai = "fastas/{asm}.fa.fai"
+    output:
+        "mapped/{asm}/contig_stats.tab"
+    conda:
+        "../envs/freebayes.yaml"
+    shell:
+        """
+        python {workflow.basedir}/scripts/calcContigGapN50.py {input.bed} {input.fai} {output}
+        """
+
 rule summary_table:
     input:
         stats = expand("mapped/{asm}/stats.tab", asm=config["assembly"].keys()),
