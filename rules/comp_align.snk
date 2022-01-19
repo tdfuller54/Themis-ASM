@@ -156,6 +156,7 @@ rule circos_plot:
         fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
     output:
         directory("final/{C}/circos_plot")
+        temp(touch("final/{C}/CircosDone"))
     params:
         minimum = -1,
         maxchr = 10,
