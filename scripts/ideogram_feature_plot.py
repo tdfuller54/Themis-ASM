@@ -230,4 +230,5 @@ if __name__ == "__main__":
     ax.set_yticks([chrom_centers[i] for i in chromosome_list])
     ax.set_yticklabels(chromosome_list)
     ax.axis('tight')
-    plt.savefig(args.output)
+    plt.tight_layout()
+    plt.savefig(args.output, bbox_inches='tight')

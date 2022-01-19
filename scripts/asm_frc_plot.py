@@ -40,4 +40,5 @@ for k, g in df.groupby(['asm']):
     i += 1
 
 plt.legend(loc='best')
-plt.savefig(snakemake.output["plot"])
+plt.tight_layout()
+plt.savefig(snakemake.output["plot"], bbox_inches='tight')

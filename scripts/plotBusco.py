@@ -75,7 +75,8 @@ def main(args, parser):
     ax.legend(ncol=4, fontsize='small', loc='lower left', bbox_to_anchor=(0, 1))
 
     plt.yticks(np.arange(len(args.asms)), df["Assembly"])
-    plt.savefig(args.output)
+    plt.tight_layout()
+    plt.savefig(args.output, bbox_inches='tight')
 
 if __name__ == "__main__":
     args, parser = parse_user_input()
