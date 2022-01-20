@@ -87,14 +87,13 @@ def main(args, parser):
     # Assuming everything worked, try to run circos
     cConf.run('circos')
 
-colorlist = [f'chr{x}' for x in [1,17,9,22,11,7,16,8,15,2,14,10,5,13,4,12,3,18,21,19,6,20,21,23]]
-colordeq = deque(colorlist)
+
 
 class CircosConf:
 
     def __init__(self, outDir):
         self.outDir = outDir
-        self.colors = colordeq
+        self.colors = deque([f'chr{x}' for x in [1,17,9,22,11,7,16,8,15,2,14,10,5,13,4,12,3,18,21,19,6,20,21,23]])
         self.targetList = []
         self.queryList = []
         self.corrKey = defaultdict(dict)
