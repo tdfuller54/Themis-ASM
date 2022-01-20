@@ -63,7 +63,7 @@ def main(args, parser):
         logging.debug('Entering debug mode')
     else:
         logging.basicConfig(level=logging.INFO)
-        
+
 
     # Create output directory
     os.makedirs(args.output, exist_ok=True)
@@ -93,7 +93,6 @@ class CircosConf:
     def __init__(self, outDir):
         self.outDir = outDir
         self.colors = deque([f'chr{x}' for x in [1,17,9,22,11,7,16,8,15,2,14,10,5,13,4,12,3,18,21,19,6,20,21,23]])
-
         self.targetList = []
         self.queryList = []
         self.corrKey = defaultdict(dict)
@@ -208,7 +207,7 @@ class LinkFile:
                     continue
                 for n, aln in enumerate(self.algnDict[target.name]) :
                     if aln.length < min_align_length :
-                        logging.debug(f'ALN Skipping {aln.length} < {min_align_length}') 
+                        logging.debug(f'ALN Skipping {aln.length} < {min_align_length}')
                         continue
                     link1 = "link{} {} {} {}".format(str(p)+"_"+str(n), target.tag, aln.T_start, aln.T_end)
                     output.write(link1+"\n")
