@@ -155,8 +155,8 @@ rule circos_plot:
         paf = "calls/vars{C}.paf",
         fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
     output:
-        directory("final/{C}/circos_plot"),
-        temp(touch("final/{C}/CircosDone"))
+        dir = directory("final/{C}/circos_plot"),
+        done = temp(touch("final/{C}/CircosDone"))
     params:
         minimum = -1,
         maxchr = 10,
@@ -166,7 +166,7 @@ rule circos_plot:
         "../envs/circos.yaml"
     shell:
         """
-        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {output} -c {params.maxchr} -m {params.minimum} {params.debug}
+        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {output.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
         """
 
 rule pdfs_finished:
