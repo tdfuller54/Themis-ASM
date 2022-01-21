@@ -199,10 +199,7 @@ class LinkFile:
         llist.sort(reverse=True)
         logging.debug('length of llist: ' + str(len(llist)))
         cutoff = int(len(llist) * 0.1)
-        #Not sure if this is correct but think error is occuring
-        #because of indexing error. Trying to make len(llist) need to
-        #be greater than 200 in case it is exactly 200
-        if cutoff < 200 and len(llist) > 201:
+        if cutoff < 200 and len(llist) >= 200:
             cutoff = 200
         logging.info(f'Min sort value {llist[cutoff]}')
         return llist[cutoff]
@@ -264,13 +261,10 @@ class KaryotypeFile:
 
     def readPAF(self, paf, min_align_length):
         adj_min_len = min_align_length
-        n = 1
         with open(paf, 'r') as input:
             for l in input:
                 s = l.rstrip().split()
                 if s[5] not in self.targets_to_plot:
-                    logging.debug(str(s[5]) + ' not in targets_to_plot' + str(n))
-                    n += 1
                     continue
                 t_len = int(s[6])
                 query = s[0]
@@ -282,12 +276,10 @@ class KaryotypeFile:
                 length = int(s[10])
 
                 if int(s[11]) < 20:
-                    logging.debug(str(s11) + ' what is this value?')
                     continue
                 if min_align_length == -1:
                     adj_min_len = int(t_len * 0.05)
-                if length <= min_align_length:
-                    logging.debug(Str(s[5]) + ' : length ' + str(length) + 'less than min_al: ' + str(min_align_length))
+                if length <= adj_min_length:
                     continue
                 if s[5] not in self.algnDict.keys() :
                     self.algnDict[s[5]] = [Alignment(query, q_start, q_end, t_start, t_end, length)]

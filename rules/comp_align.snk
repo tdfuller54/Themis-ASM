@@ -152,7 +152,7 @@ rule variant_size_pdfs:
 
 rule circos_plot:
     input:
-        paf = "calls/vars{C}.paf",
+        paf = "mapped/map{C}.paf",
         fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
     output:
         dir = directory("final/{C}/circos_plot"),
@@ -160,7 +160,7 @@ rule circos_plot:
     params:
         minimum = -1,
         maxchr = 10,
-        debug = '-d',
+        debug = '',
         wc = lambda wildcards : wildcards.C.split('_'),
     conda:
         "../envs/circos.yaml"
