@@ -75,6 +75,10 @@ def main(args, parser):
     kFile.readPAF(args.paf, args.minimum)
     kFile.writeKaryotype(args.minimum)
 
+    ##debugging
+    logging.debug('kFile.algnDict: ' + str(kFile.algnDict))
+    logging.debug('cConf.targetList: ' + str(cConf.targetList))
+
     # Now create the Link file
     lFile = LinkFile(kFile.algnDict, cConf.targetList, cConf.corrKey, args.output)
     lFile.writeLinks(args.minimum)
