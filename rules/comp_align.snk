@@ -160,7 +160,7 @@ rule circos_plot:
     params:
         minimum = -1,
         maxchr = 10,
-        debug = '',
+        debug = '-d',
         wc = lambda wildcards : wildcards.C.split('_'),
     conda:
         "../envs/circos.yaml"
