@@ -267,8 +267,10 @@ class KaryotypeFile:
         with open(paf, 'r') as input:
             for l in input:
                 s = l.rstrip().split()
+                n = 1
                 if s[5] not in self.targets_to_plot:
-                    logging.debug(str(s[5]) + ' not in targets_to_plot')
+                    logging.debug(str(s[5]) + ' not in targets_to_plot' + str(n))
+                    n += 1
                     continue
                 t_len = int(s[6])
                 query = s[0]
