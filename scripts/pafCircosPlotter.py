@@ -77,6 +77,7 @@ def main(args, parser):
 
     ##debugging
     logging.debug('kFile: ' + str(kFile))
+    logging.debug('kFile targets_to_plot: ' + str(kFile.targets_to_plot))
     logging.debug('kFile.algnDict: ' + str(kFile.algnDict))
     logging.debug('cConf.targetList: ' + str(cConf.targetList))
 
