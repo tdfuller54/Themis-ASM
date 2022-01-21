@@ -193,7 +193,10 @@ class LinkFile:
         llist.sort(reverse=True)
         logging.debug(len(llist))
         cutoff = int(len(llist) * 0.1)
-        if cutoff < 200 and len(llist) >= 200:
+        #Not sure if this is correct but think error is occuring
+        #because of indexing error. Trying to make len(llist) need to
+        #be greater than 200 in case it is exactly 200
+        if cutoff < 200 and len(llist) > 200:
             cutoff = 200
         logging.info(f'Min sort value {llist[cutoff]}')
         return llist[cutoff]
