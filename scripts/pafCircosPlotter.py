@@ -279,7 +279,7 @@ class KaryotypeFile:
                     continue
                 if min_align_length == -1:
                     adj_min_len = int(t_len * 0.05)
-                if length <= adj_min_length:
+                if length <= adj_min_len:
                     continue
                 if s[5] not in self.algnDict.keys() :
                     self.algnDict[s[5]] = [Alignment(query, q_start, q_end, t_start, t_end, length)]
