@@ -76,6 +76,7 @@ def main(args, parser):
     kFile.writeKaryotype(args.minimum)
 
     ##debugging
+    logging.debug('kFile: ' + str(kFile))
     logging.debug('kFile.algnDict: ' + str(kFile.algnDict))
     logging.debug('cConf.targetList: ' + str(cConf.targetList))
 
