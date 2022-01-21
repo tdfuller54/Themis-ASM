@@ -191,7 +191,7 @@ class LinkFile:
                 continue
             llist.extend([x.length for x in self.algnDict[t.name]])
         llist.sort(reverse=True)
-        logging.debug(len(llist))
+        logging.debug('length of llist: ' + len(llist))
         cutoff = int(len(llist) * 0.1)
         #Not sure if this is correct but think error is occuring
         #because of indexing error. Trying to make len(llist) need to
