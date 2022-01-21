@@ -268,6 +268,7 @@ class KaryotypeFile:
             for l in input:
                 s = l.rstrip().split()
                 if s[5] not in self.targets_to_plot:
+                    logging.debug(str(s[5]) + ' not in targets_to_plot')
                     continue
                 t_len = int(s[6])
                 query = s[0]
@@ -279,10 +280,12 @@ class KaryotypeFile:
                 length = int(s[10])
 
                 if int(s[11]) < 20:
+                    logging.debug(str(s11) + ' what is this value?')
                     continue
                 if min_align_length == -1:
                     adj_min_len = int(t_len * 0.05)
                 if length <= min_align_length:
+                    logging.debug(Str(s[5]) + ' : length ' + str(length) + 'less than min_al: ' + str(min_align_length))
                     continue
                 if s[5] not in self.algnDict.keys() :
                     self.algnDict[s[5]] = [Alignment(query, q_start, q_end, t_start, t_end, length)]
