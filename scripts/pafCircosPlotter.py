@@ -175,8 +175,10 @@ class CircosConf:
         os.chdir(os.path.join(self.outDir))
         logging.info("Running circos in {}".format(os.getcwd()))
         proc = sp.run(cmd, stdout=sp.PIPE, stderr=sp.STDOUT, check=True)
+        logging.info(f'output from circos: {proc.stdout}')
         logging.info("Done!")
         os.chdir(cwd)
+        logging.info(f'output from circos: {proc.stdout}')
         return proc.stdout
 
 class LinkFile:
