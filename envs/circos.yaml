@@ -6,9 +6,4 @@ channels:
   - defaults
 dependencies:
   - python=3.7
-  - libgd
-  - perl-list-moreutils
-  - perl-module-implementation
-  - perl-params-validate
   - circos
-  - perl-gd
