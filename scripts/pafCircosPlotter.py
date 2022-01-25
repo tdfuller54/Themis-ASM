@@ -200,9 +200,9 @@ class LinkFile:
             llist.extend([x.length for x in self.algnDict[t.name]])
         llist.sort(reverse=True)
         logging.info('length of llist: ' + str(len(llist)))
-        cutoff = int(len(llist) * 0.1)
-        if cutoff < 200 and len(llist) >= 200:
-            cutoff = 200
+        cutoff = -1
+        if len(llist) >= 200:
+            cutoff = 199
         logging.info(f'cutoff value: {cutoff}')
         logging.info(f'llist is: {llist}')
         logging.info(f'last item in llist: {llist[-1]}')
