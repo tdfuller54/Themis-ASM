@@ -76,10 +76,10 @@ def main(args, parser):
     kFile.writeKaryotype(args.minimum)
 
     ##debugging
-    logging.debug('kFile: ' + str(kFile))
-    logging.debug('kFile targets_to_plot: ' + str(kFile.targets_to_plot))
-    logging.debug('kFile.algnDict: ' + str(kFile.algnDict))
-    logging.debug('cConf.targetList: ' + str(cConf.targetList))
+    logging.info('kFile: ' + str(kFile))
+    logging.info('kFile targets_to_plot: ' + str(kFile.targets_to_plot))
+    logging.info('kFile.algnDict: ' + str(kFile.algnDict))
+    logging.info('cConf.targetList: ' + str(cConf.targetList))
 
     # Now create the Link file
     lFile = LinkFile(kFile.algnDict, cConf.targetList, cConf.corrKey, args.output)
@@ -175,10 +175,10 @@ class CircosConf:
         os.chdir(os.path.join(self.outDir))
         logging.info("Running circos in {}".format(os.getcwd()))
         proc = sp.run(cmd, stdout=sp.PIPE, stderr=sp.STDOUT, check=True)
-        logging.info(f'output from circos: {proc.stdout}')
+        #logging.info(f'output from circos: {proc.stdout}')
         logging.info("Done!")
         os.chdir(cwd)
-        logging.info(f'output from circos: {proc.stdout}')
+        #logging.info(f'output from circos: {proc.stdout}')
         return proc.stdout
 
 class LinkFile:
@@ -199,10 +199,13 @@ class LinkFile:
                 continue
             llist.extend([x.length for x in self.algnDict[t.name]])
         llist.sort(reverse=True)
-        logging.debug('length of llist: ' + str(len(llist)))
+        logging.info('length of llist: ' + str(len(llist)))
         cutoff = int(len(llist) * 0.1)
         if cutoff < 200 and len(llist) >= 200:
             cutoff = 200
+        logging.info(f'cutoff value: {cutoff}')
+        logging.info(f'llist is: {llist}')
+        logging.info(f'last item in llist: {llist[-1]}')
         logging.info(f'Min sort value {llist[cutoff]}')
         return llist[cutoff]
 
