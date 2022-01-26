@@ -169,7 +169,10 @@ rule circos_plot:
         """
         cd $CONDA_PREFIX ;
         cd lib/ ;
-        ln -s libwebp.so.7 libwebp.so.6 ;
+        if [ ! -e libwebp.so.6 ]
+        then
+            ln -s libwebp.so.7 libwebp.so.6
+        fi;
         cd {workflow.basedir} ;
         python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {params.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
         """
