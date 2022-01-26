@@ -233,12 +233,20 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     #f'## Assembly comparison: {assemblies[0]} vs {assemblies[1]}',
                     '<br>', f'In all cases, {assemblies[1]} is the query and {assemblies[0]} is the target or reference',
                     '---',
-                    '## Assembly alignment dotplot',
+                    '## Assembly Alignment Dotplot',
                     'This is a comparative alignment of the assemblies colored by the average percent identity of each alignment. If the assemblies are the same, you would expect a straight diagonal line with near max percent identity alignments.',
                     f'![Comparison of minimap2 alignments of each assembly to the other]({combo}/plot{combo}.png)',
                     f'[Click here for an interactive version of this plot!]({combo}/int{combo}.html)',
                     '---',
-                    '## All assembly alignment variants',
+                    '## Assembly Alignment Circos Plot',
+                    #likely want to
+                    #make this
+                    #description better
+                    'Circular layout plotting the assemblies side by side for easy visualization of the aligned regions between each.  ',
+                    '  ',
+                    f'![Plot of aligned regions of each assembly to the other]({combo}/circos_plot/circos.svg)',
+                    '---',
+                    '## All Assembly Alignment Variants',
                     f'These are all of the discernable alignment variants identified in this assembly comparison, plotted on a log scale. Insertions and expansions indicate an increase in assembly size in {assemblies[1]} compared to {assemblies[0]}. Vice versa for deletions and contractions.  ',
                     '  ',
                     #f'<embed src="{combo}/vars{combo}.log_all_sizes.pdf" type="application/pdf" width="100%" height="600px" />',
@@ -385,14 +393,14 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                        ''])
         mdlines.append(f'#### {a} kmer spectra plot and feature density plot for largest contigs')
         #mdlines.append(f'<embed src="{finalfolder}/{a}.spectra-asm.st.pdf" type="application/pdf" width="100%" height="600px" />')
-        mdlines.extend(['<table style="width: 100%;height: 650px;border: none;">',
+        mdlines.extend(['<table style="width: 100%;height: 500px;border: none;">',
                        '<colgroup>',
                        '<col span="1" style="width: 50%">',
                        '<col span="1" style="width: 50%">',
                        '</colgroup>',
                        '<tr style="border: none;">',
-                       '<td style="border: none;height:650px;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
-                       '<td style="text-align:center;border: none;height:650px"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
+                       '<td style="border: none;height:500px;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                       '<td style="text-align:center;border: none;height:500px"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
                        '</tr>',
                        '</table>'])
 

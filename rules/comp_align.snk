@@ -196,6 +196,7 @@ rule comparison_webpage:
         spectra = expand("final/{asm}.spectra-asm.st.png", asm = config["assembly"].keys()),
         summary_table = "final/summary_table.tab",
         buscoplot = "final/combined_buscos.png",
+        circosplots = expand("final/{C}/circos_plot/circos.svg", C=pcombis),
     output:
         "themis_summary_page.html"
     conda:
