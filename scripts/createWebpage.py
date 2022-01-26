@@ -393,14 +393,14 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                        ''])
         mdlines.append(f'#### {a} kmer spectra plot and feature density plot for largest contigs')
         #mdlines.append(f'<embed src="{finalfolder}/{a}.spectra-asm.st.pdf" type="application/pdf" width="100%" height="600px" />')
-        mdlines.extend(['<table style="width: 100%;height: 500px;border: none;">',
+        mdlines.extend(['<table style="width: 100%;height: 600px;border: none;">',
                        '<colgroup>',
                        '<col span="1" style="width: 50%">',
                        '<col span="1" style="width: 50%">',
                        '</colgroup>',
                        '<tr style="border: none;">',
-                       '<td style="border: none;height:500px;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
-                       '<td style="text-align:center;border: none;height:500px"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
+                       '<td style="text-align:center;vertical-align:bottom;border: none;height:600px;"> ' + '<h4 align="center">Kmer Plot</h4> ' + f'<img src="{finalfolder}/{a}.spectra-asm.st.png" alt="Kmer spectrum plot">' + ' </td>',
+                       '<td style="text-align:center;vertical-align:bottom;border: none;height:600px;"> ' + '<h4 align="center">Ideogram Error Windows</h4> ' + f'<img src="{finalfolder}/ideogram_errors.{a}.png" alt="Ideogram error plot" style="max-height:100%;max-width:100%">' + ' </td>',
                        '</tr>',
                        '</table>'])
 
