@@ -155,10 +155,10 @@ rule circos_plot:
         paf = "mapped/map{C}.paf",
         fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
     output:
-        dir = directory("final/{C}/circos_plot"),
         done = temp(touch("final/{C}/CircosDone"))
     params:
         minimum = -1,
+        dir = "final/{C}/circos_plot",
         maxchr = 10,
         debug = '',
         wc = lambda wildcards : wildcards.C.split('_'),
@@ -170,7 +170,7 @@ rule circos_plot:
         cd lib/ ;
         ln -s libwebp.so.7 libwebp.so.6 ;
         cd {workflow.basedir} ;
-        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {output.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
+        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {params.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
         """
 
 rule pdfs_finished:
