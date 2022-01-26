@@ -155,7 +155,8 @@ rule circos_plot:
         paf = "mapped/map{C}.paf",
         fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
     output:
-        done = temp(touch("final/{C}/CircosDone"))
+        "final/{C}/circos_plot/circos.svg",
+        "final/{C}/circos_plot/circos.png",
     params:
         minimum = -1,
         dir = "final/{C}/circos_plot",
@@ -196,7 +197,8 @@ rule comparison_webpage:
         spectra = expand("final/{asm}.spectra-asm.st.png", asm = config["assembly"].keys()),
         summary_table = "final/summary_table.tab",
         buscoplot = "final/combined_buscos.png",
-        circosplots = expand("final/{C}/circos_plot/circos.svg", C=pcombis),
+        circossvg = expand("final/{C}/circos_plot/circos.svg", C=pcombis),
+        circospng = expand("final/{C}/circos_plot/circos.png", C=pcombis),
     output:
         "themis_summary_page.html"
     conda:
