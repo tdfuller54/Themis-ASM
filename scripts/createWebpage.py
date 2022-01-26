@@ -242,7 +242,7 @@ def compMd(combo, assemblies, outbase, finalfolder):
                     #likely want to
                     #make this
                     #description better
-                    'Circular layout plotting the assemblies side by side for easy visualization of the aligned regions between each.  ',
+                    'Circular layout plotting the assemblies side by side. Ribbons connect the aligned regions between each assembly for easy visualization.  ',
                     '  ',
                     f'![Plot of aligned regions of each assembly to the other]({combo}/circos_plot/circos.svg)',
                     '---',
