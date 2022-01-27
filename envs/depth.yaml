@@ -6,3 +6,4 @@ channels:
   - defaults
 dependencies:
   - pysam
+  - java-jdk
