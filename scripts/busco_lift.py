@@ -30,4 +30,4 @@ shell(
 
 # move to intended location
 shell("cp {out_name}/short_summary*.txt {outdir}/busco_summary.txt")
-shell("rm -rf {out_name}")
+#shell("rm -rf {out_name}")
