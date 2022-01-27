@@ -223,6 +223,13 @@
     "jobname" : "{rule}"
   },
 
+  "mask_bed_fasta" :
+  {
+    "mem" : "15000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
   "comparison_webpage" :
   {
     "mem" : "10000",
