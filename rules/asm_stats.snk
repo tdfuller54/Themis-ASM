@@ -94,7 +94,7 @@ rule mask_bed_fasta:
         """
         java -Xmx10g -jar {workflow.basedir}/GetMaskBedFasta/store/GetMaskBedFasta.jar -f {input} -o {output.bed} -s {output.stats} 2> {log}
         """
-        
+
 rule contig_gap_stats:
     input:
         bed = "mapped/{asm}/gaps.bed",
@@ -111,6 +111,7 @@ rule contig_gap_stats:
 rule summary_table:
     input:
         stats = expand("mapped/{asm}/stats.tab", asm=config["assembly"].keys()),
+        ctgstats = expand("mapped/{asm}/contig_stats.tab", asm=config["assembly"].keys()),
         merqv = expand("merqury/{asm}/{asm}.qv", asm=config["assembly"].keys()),
         complete = expand("merqury/{asm}/{asm}.completeness.stats", asm=config["assembly"].keys()),
         busco = expand("busco/{asm}/busco_summary.txt", asm=config["assembly"].keys()),

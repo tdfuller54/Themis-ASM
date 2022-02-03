@@ -2,14 +2,15 @@ from collections import defaultdict
 import pysam
 import re
 
-entries = ["CtgNum", "TotBases", "ContigN50",
+entries = ["ScfdNum", "TotBases", "ScaffoldN50", "CtgNum", "ContigN50",
 "merQV", "merErrorRate", "merCompleteness", "baseQV",
 "unmap%", "LOW_COV_PE", "LOW_NORM_COV_PE", "HIGH_SPAN_PE", "HIGH_COV_PE",
 "HIGH_NORM_COV_PE", "STRECH_PE", "COMPR_PE", "HIGH_OUTIE_PE",
 "HIGH_SINGLE_PE", "SVDEL", "SVDUP", "SVBND"]
 
-descriptions = {"CtgNum" : "Number of contigs", "TotBases" : "Assembly length in Mbp",
-"ContigN50" : "Half the length of asm is in ctgs of this size",
+descriptions = {"ScfdNum" : "Number of scaffolds", "TotBases" : "Assembly length in Mbp",
+"ScaffoldN50" : "Half the length of asm is in scaffolds of this size",
+"CtgNum" : "Number of contigs", "ContigN50" : "Half the length of asm is in contigs of this size",
 "merQV" : "kmer-based Quality", "merErrorRate" : "kmer-based error rate",
 "merCompleteness" : "Proportion of complete assembly based on kmers", "baseQV" : "SNP and INDEL Quality value",
 "unmap%" : "Percentage of short-reads unmapped", "LOW_COV_PE" : "Low read COV areas",
@@ -38,8 +39,17 @@ for i in snakemake.input["stats"]:
         h = sts.readline()
         l = sts.readline()
         s = l.rstrip().split()
-        solid["CtgNum"].append(s[0])
+        solid["ScfdNum"].append(s[0])
         solid["TotBases"].append("{:.2f}".format(int(s[1]) / 1000000))
+        solid["ScaffoldN50"].append(s[5])
+
+# Populate contig stat entries
+for i in snakemake.input["ctgstats"]:
+    print(f'ctgstats v:{i}')
+    with open(i, 'r') as csts:
+        l = csts.readline()
+        s = l.rstrip().split()
+        solid["CtgNum"].append(s[0])
         solid["ContigN50"].append(s[5])
 
 # Populate merqury entries
@@ -194,7 +204,7 @@ with open(snakemake.output["table"], 'w') as out:
 
     out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format("Assembly Files", formatVarWidth(fastas, ccol), "Path to assembly files", ecol= ecol, dcol=dcol))
 
-    for i in ["CtgNum", "TotBases", "ContigN50"]:
+    for i in ["ScfdNum", "TotBases", "ScaffoldN50", "CtgNum", "ContigN50"]:
         nsubs = elines[i]
         d = descriptions[i].split('\n')
         out.write('|{0: <{ecol}}{1}{2: <{dcol}}|\n'.format(i, formatVarWidth(solid[i], ccol), d[0], ecol= ecol, dcol=dcol))
