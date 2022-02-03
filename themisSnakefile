@@ -50,7 +50,8 @@ rule all:
         expand("final/ideogram_upperq_error_windows.{asm}.bed", asm = config["assembly"].keys()),
         expand("final/{asm}.spectra-asm.st.png", asm = config["assembly"].keys()),
         expand("mapped/{asm}/gaps.bed", asm = config["assembly"].keys()),
-        expand("mapped/{asm}/gaps.stats", asm = config["assembly"].keys())
+        expand("mapped/{asm}/gaps.stats", asm = config["assembly"].keys()),
+        expand("mapped/{asm}/contig_stats.tab", asm = config["assembly"].keys())
 
 
 rule organize:

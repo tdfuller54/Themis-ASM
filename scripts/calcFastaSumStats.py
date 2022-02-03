@@ -9,7 +9,7 @@ fai = f + '.fai'
 shell("samtools faidx {f}")
 
 with open(snakemake.output[0], 'w') as out:
-    out.write("Num\tSumBp\tMeanBp\tMedianBp\tStdevBp\tContigN50\n")
+    out.write("Num\tSumBp\tMeanBp\tMedianBp\tStdevBp\tScaffoldN50\n")
 
     sizes = list()
 

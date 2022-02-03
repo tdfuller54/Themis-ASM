@@ -230,6 +230,13 @@
     "jobname" : "{rule}"
   },
 
+  "contig_gap_stats" :
+  {
+    "mem" : "15000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
   "comparison_webpage" :
   {
     "mem" : "10000",
