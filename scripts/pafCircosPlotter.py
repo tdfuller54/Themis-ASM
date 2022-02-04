@@ -242,19 +242,31 @@ class KaryotypeFile:
         self.targets_to_plot = set()
         self.algnDict = {}
         self.karyotypes = []
-        self.ideogramList = []
+        self.ChrToTag = {}
+        self.chrorder = []
 
     def getTargetList(self):
         return self.targetList
 
     def getIdeogramList(self):
-        logging.debug(self.ideogramList)
-        return ';'.join(self.ideogramList)
+        ideogramList = []
+        for c in self.chrorder:
+            cLength = 1
+            if c in self.refLenDict:
+                cLength = self.refLenDict[c]
+            else:
+                cLength = self.qLenDict[c]
+            ideogramList.append(f'{self.ChrToTag[c]}:1-{cLength}')
+        logging.debug(ideogramList)
+        return ';'.join(ideogramList)
 
     def filterTargetList(self, maxChr):
         sorted_rchromosomes = [x for x, j in sorted(self.refLenDict.items(), key=lambda item : item[1], reverse=True)]
         sorted_qchromosomes = [x for x, j in sorted(self.qLenDict.items(), key=lambda item : item[1], reverse=True)]
-        self.targets_to_plot = set(list(sorted_rchromosomes[:maxChr]) + list( sorted_qchromosomes[:maxChr]))
+        sorted_qchromosomes = sorted_qchromosomes[:maxChr]
+        sorted_qchromosomes = sorted_qchromosomes[::-1]
+        self.targets_to_plot = set(list(sorted_rchromosomes[:maxChr]) + list( sorted_qchromosomes))
+        self.chrorder = list(sorted_rchromosomes[:maxChr]) + sorted_qchromosomes
 
     def generateRuleText(self):
         text = ''
@@ -302,8 +314,10 @@ class KaryotypeFile:
                     logging.debug(f'Skipping {query.name} because it was  not in targets_to_plot')
                     continue
                 else:
-                    self.ideogramList.append(f'{query.tag}:{query.start}-{query.end}')
+                    self.ChrToTag[query.name] = query.tag
+                    
             for target in self.targetList:
+                self.ChrToTag[target.name] = target.tag
                 if target not in self.karyotypes:
                     self.karyotypes.append(target)
                     displayName = '{:1.20}'.format(target.name)
@@ -343,7 +357,7 @@ class KaryotypeFile:
                     else :
                         #print(aln.T_start, aln.T_end) # DEBUG
                         continue
-                self.ideogramList.append(f'{target.tag}:{target.start}-{target.end}')
+                
                 logging.debug(f'Skipped {skips} out of {lines} lines in alignment of target {target.name}')
 
 
