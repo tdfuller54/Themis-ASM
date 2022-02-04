@@ -48,10 +48,12 @@ for i in snakemake.input["stats"]:
 for i in snakemake.input["ctgstats"]:
     print(f'ctgstats v:{i}')
     with open(i, 'r') as csts:
-        h = sts.readline()
+        h = csts.readline()
         print(h)
         l = csts.readline()
+        print(l)
         s = l.rstrip().split()
+        print(s)
         solid["CtgNum"].append(s[0])
         solid["ContigN50"].append(s[5])
 
