@@ -207,8 +207,13 @@ class LinkFile:
         llist.sort(reverse=True)
         logging.debug(len(llist))
         cutoff = int(len(llist) * 0.1)
+        logging.info(f'cutoff is: {cutoff}')
         if cutoff < 200 and len(llist) >= 200:
             cutoff = 200
+        logging.info('length of llist: ' + str(len(llist)))
+        logging.info(f'cutoff value: {cutoff}')
+        logging.info(f'llist is: {llist}')
+        logging.info(f'last item in llist: {llist[-1]}')
         logging.info(f'Min sort value {llist[cutoff]}')
         return llist[cutoff]
 
@@ -298,7 +303,7 @@ class KaryotypeFile:
                     continue
                 if min_align_length == -1:
                     adj_min_len = int(t_len * 0.05)
-                if length <= min_align_length:
+                if length <= adj_min_len:
                     continue
                 if s[5] not in self.algnDict.keys() :
                     self.algnDict[s[5]] = [Alignment(query, q_start, q_end, t_start, t_end, length)]
