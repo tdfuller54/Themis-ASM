@@ -88,7 +88,7 @@ def main(args, parser):
     # Finally, create the remaining configuration files
     cConf.createTicksFile()
     cConf.createIdeogramFile()
-    cConf.createConfFile(kFile.getIdeogramList(), kFile.generateRuleText())
+    cConf.createConfFile(kFile.getIdeogramList(), kFile.getChrOrder(), kFile.generateRuleText())
 
     # Assuming everything worked, try to run circos
     cConf.run('circos')
@@ -113,11 +113,11 @@ class CircosConf:
 
         return input_text
 
-    def createConfFile(self, ideogramtext, rulestext):
+    def createConfFile(self, ideogramtext, ordertext, rulestext):
         with open(os.path.join(self.outDir, "circos.conf"), 'w') as output:
             output.write(self.replacePattern(CIRCOS,
-            ["<CHROMOSOMES_WILL_GO_HERE>", "<RULES_GO_HERE>"],
-            [ideogramtext, rulestext]))
+            ["<CHROMOSOMES_WILL_GO_HERE>", "<ORDERS_GO_HERE>", "<RULES_GO_HERE>"],
+            [ideogramtext, ordertext, rulestext]))
 
     def createTicksFile(self):
         with open(os.path.join(self.outDir, "ticks.conf"), 'w') as output:
@@ -247,6 +247,9 @@ class KaryotypeFile:
 
     def getTargetList(self):
         return self.targetList
+    
+    def getChrOrder(self):
+        return ';'.join(self.chrorder)
 
     def getIdeogramList(self):
         ideogramList = []
@@ -459,6 +462,7 @@ karyotype = ./karyotype.txt
 chromosomes_units = 1
 chromosomes_display_default = no
 chromosomes = <CHROMOSOMES_WILL_GO_HERE>
+chromosomes_order = <ORDERS_GO_HERE>
 
 <links>
 
