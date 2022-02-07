@@ -205,12 +205,11 @@ class LinkFile:
         if len(llist) == 0:
             return None
         llist.sort(reverse=True)
-        logging.debug(len(llist))
-        cutoff = int(len(llist) * 0.1)
-        logging.info(f'cutoff is: {cutoff}')
-        if cutoff < 200 and len(llist) >= 200:
-            cutoff = 200
         logging.info('length of llist: ' + str(len(llist)))
+        logging.debug(len(llist))
+        cutoff = -1
+        if len(llist) >= 200:
+            cutoff = 199
         logging.info(f'cutoff value: {cutoff}')
         logging.info(f'llist is: {llist}')
         logging.info(f'last item in llist: {llist[-1]}')
