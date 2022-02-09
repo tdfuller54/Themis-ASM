@@ -55,4 +55,5 @@ for k, g in df.groupby(['asm']):
 
 ax.vlines(x=50.0, ymin=0, ymax=largestctg, linestyles='dashed')
 plt.legend(loc='best')
-plt.savefig(snakemake.output["plot"])
+plt.tight_layout()
+plt.savefig(snakemake.output["plot"], bbox_inches='tight')

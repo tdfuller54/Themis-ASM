@@ -80,9 +80,50 @@ rule assembly_stats:
     script:
         "../scripts/calcFastaSumStats.py"
 
+rule mask_bed_fasta:
+    input:
+        "fastas/{asm}.fa"
+    output:
+        bed = "mapped/{asm}/gaps.bed",
+        stats = "mapped/{asm}/gaps.stats"
+    conda:
+        "../envs/depth.yaml"
+    log:
+        "logs/gap_bed.{asm}.log"
+    shell:
+        """
+        java -Xmx10g -jar {workflow.basedir}/GetMaskBedFasta/store/GetMaskBedFasta.jar -f {input} -o {output.bed} -s {output.stats} 2> {log}
+        """
+
+rule contig_gap_stats:
+    input:
+        bed = "mapped/{asm}/gaps.bed",
+        fai = "fastas/{asm}.fa.fai"
+    output:
+        "mapped/{asm}/contig_stats.tab"
+    conda:
+        "../envs/freebayes.yaml"
+    shell:
+        """
+        python {workflow.basedir}/scripts/calcContigGapN50.py {input.bed} {input.fai} {output}
+        """
+
+rule assembly_gap_stats:
+    input:
+        bed = "mapped/{asm}/gaps.bed",
+        stats = "mapped/{asm}/gaps.stats"
+    output:
+        "mapped/{asm}/gap_stats.tab"
+    conda:
+        "../envs/base.yaml"
+    script:
+        "../scripts/asm_gaps.py"
+
 rule summary_table:
     input:
         stats = expand("mapped/{asm}/stats.tab", asm=config["assembly"].keys()),
+        ctgstats = expand("mapped/{asm}/contig_stats.tab", asm=config["assembly"].keys()),
+        gapstats = expand("mapped/{asm}/gap_stats.tab", asm=config["assembly"].keys()),
         merqv = expand("merqury/{asm}/{asm}.qv", asm=config["assembly"].keys()),
         complete = expand("merqury/{asm}/{asm}.completeness.stats", asm=config["assembly"].keys()),
         busco = expand("busco/{asm}/busco_summary.txt", asm=config["assembly"].keys()),
@@ -93,7 +134,8 @@ rule summary_table:
     output:
         table = "final/summary_table.tab"
     params:
-        asms=list(config["assembly"].keys())
+        asms=list(config["assembly"].keys()),
+        fastas=expand("fastas/{asm}.fa", asm=config["assembly"].keys())
     script:
         "../scripts/summary_table.py"
 

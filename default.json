@@ -1,13 +1,17 @@
 {
+  "buscoLineage" : "mammalia_odb10",
   "assembly" : {
-    "asm1" : "fasta",
-    "asm2" : "fasta"
+    "OAR4" : "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/oar4Test.fasta",
+    "Rambouillet2" : "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/ram2Test.fasta",
   },
-  "buscoLineage" : "eudicots_odb10",
   "samples" : {
-    "YMPrep3" : [
-      "/path/to/read/one/read_R1.fastq",
-      "/path/to/read/two/read_R2.fastq"
-    ]
+    "Ram2Reads" : [
+      "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/rambouillet_reads.R1.fastq",
+      "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/rambouillet_reads.R2.fastq"
+    ],
+    "Texel" : [
+      "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/texel_reads.R1.fastq",
+      "/lustre/project/rumen_longread_metagenome_assembly/tfuller/Themis-ASM/texel_reads.R2.fastq"
+    ],
   }
 }

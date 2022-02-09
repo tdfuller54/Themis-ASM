@@ -188,6 +188,13 @@
     "jobname" : "{rule}"
   },
 
+  "circos_plot" :
+  {
+    "mem" : "25000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
   "variant_sizes" :
   {
     "mem" : "10000",
@@ -212,6 +219,27 @@
   "plot_merqury" :
   {
     "mem" : "10000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
+  "mask_bed_fasta" :
+  {
+    "mem" : "25000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
+  "contig_gap_stats" :
+  {
+    "mem" : "25000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
+  "assembly_gap_stats" :
+  {
+    "mem" : "25000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },

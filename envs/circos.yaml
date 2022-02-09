@@ -1,9 +1,9 @@
-name: depth
+name: circos
 channels:
   - conda-forge
   - anaconda
   - bioconda
   - defaults
 dependencies:
-  - pysam
-  - java-jdk
+  - python=3.7
+  - circos

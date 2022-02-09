@@ -150,6 +150,33 @@ rule variant_size_pdfs:
         mv {params.prefix}*.pdf final/{params.wc}/
         """
 
+rule circos_plot:
+    input:
+        paf = "mapped/map{C}.paf",
+        fais = expand("fastas/{asm}.fa.fai", asm=config["assembly"].keys())
+    output:
+        "final/{C}/circos_plot/circos.svg",
+        "final/{C}/circos_plot/circos.png",
+    params:
+        minimum = -1,
+        dir = "final/{C}/circos_plot",
+        maxchr = 10,
+        debug = '',
+        wc = lambda wildcards : wildcards.C.split('_'),
+    conda:
+        "../envs/circos.yaml"
+    shell:
+        """
+        cd $CONDA_PREFIX ;
+        cd lib/ ;
+        if [ ! -e libwebp.so.6 ]
+        then
+            ln -s libwebp.so.7 libwebp.so.6
+        fi;
+        cd {workflow.basedir} ;
+        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {params.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
+        """
+
 rule pdfs_finished:
     input:
         varplots = expand("final/{C}/vars{C}.log_all_sizes.pdf", C=pcombis),
@@ -173,6 +200,8 @@ rule comparison_webpage:
         spectra = expand("final/{asm}.spectra-asm.st.png", asm = config["assembly"].keys()),
         summary_table = "final/summary_table.tab",
         buscoplot = "final/combined_buscos.png",
+        circossvg = expand("final/{C}/circos_plot/circos.svg", C=pcombis),
+        circospng = expand("final/{C}/circos_plot/circos.png", C=pcombis),
     output:
         "themis_summary_page.html"
     conda:

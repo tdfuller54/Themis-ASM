@@ -1,0 +1,3 @@
+[submodule "GetMaskBedFasta"]
+	path = GetMaskBedFasta
+	url = https://github.com/njdbickhart/GetMaskBedFasta.git
