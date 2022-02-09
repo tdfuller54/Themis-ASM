@@ -62,7 +62,7 @@ for i in snakemake.input["gapstats"]:
         l = gsts.readline()
         s = l.rstrip().split()
         solid["nGaps"].append(s[0])
-        solid["%nGaps"].append("{:.4f}".format(int(float(s[1]))))
+        solid["%nGaps"].append("{:.4f}".format(float(s[1])))
 
 # Populate merqury entries
 for i in snakemake.input["merqv"]:
