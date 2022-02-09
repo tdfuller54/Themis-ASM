@@ -328,7 +328,7 @@ def indexMd(fastas, assemblies, combos, finalfolder):
                     'These are general statistics for estimating assembly error rate and quality. These tables and figures provide some information regarding an assembly\'s completeness, but may obscure smaller defects or large structural issues within the assembly. Notably, scaffold misjoins are a common error that can artificially inflate several of these statistics.',
                     '---',
                     '#### Assembly Continuity Statistics',
-                    'These are statistics regarding assembly continuity. Better assemblies tend to have fewer contigs and greater N50 scores.'])
+                    'These are statistics regarding assembly continuity. Better assemblies tend to have fewer contigs, greater N50 scores, and fewer gaps.'])
     mdlines.append(testHtml(tablines[0]))
                     #'<div style="position:relative">',
                     #'<div style="position:absolute;bottom:0;left:0">',
