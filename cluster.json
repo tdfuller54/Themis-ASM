@@ -225,14 +225,21 @@
 
   "mask_bed_fasta" :
   {
-    "mem" : "15000",
+    "mem" : "25000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "contig_gap_stats" :
   {
-    "mem" : "15000",
+    "mem" : "25000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
+  "assembly_gap_stats" :
+  {
+    "mem" : "25000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },

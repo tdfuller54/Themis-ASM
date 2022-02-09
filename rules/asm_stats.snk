@@ -108,10 +108,22 @@ rule contig_gap_stats:
         python {workflow.basedir}/scripts/calcContigGapN50.py {input.bed} {input.fai} {output}
         """
 
+rule assembly_gap_stats:
+    input:
+        bed = "mapped/{asm}/gaps.bed",
+        stats = "mapped/{asm}/gaps.stats"
+    output:
+        "mapped/{asm}/gap_stats.tab"
+    conda:
+        "../envs/base.yaml"
+    script:
+        "../scripts/asm_gaps.py"
+
 rule summary_table:
     input:
         stats = expand("mapped/{asm}/stats.tab", asm=config["assembly"].keys()),
         ctgstats = expand("mapped/{asm}/contig_stats.tab", asm=config["assembly"].keys()),
+        gapstats = expand("mapped/{asm}/gap_stats.tab", asm=config["assembly"].keys()),
         merqv = expand("merqury/{asm}/{asm}.qv", asm=config["assembly"].keys()),
         complete = expand("merqury/{asm}/{asm}.completeness.stats", asm=config["assembly"].keys()),
         busco = expand("busco/{asm}/busco_summary.txt", asm=config["assembly"].keys()),
