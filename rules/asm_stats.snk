@@ -23,9 +23,8 @@ rule download_busco:
 
 rule run_busco:
     input:
-        "busco_downloads/",
-        "fastas/{asm}.fa",
-        "busco_downloads/download.done"
+        "busco_downloads/download.done",
+        "fastas/{asm}.fa"
     output:
         protected("busco/{asm}/busco_summary.txt")
     log:
@@ -34,6 +33,7 @@ rule run_busco:
     conda:
         "../envs/busco.yaml"
     params:
+        download_path = "busco_downloads/",
         mode="genome",
         lineage_path=config["buscoLineage"],
         asm = lambda wildcards: wildcards.asm,

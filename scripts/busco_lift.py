@@ -13,6 +13,7 @@ extra = snakemake.params.get("extra", "")
 mode = snakemake.params.get("mode")
 assert mode is not None, "please input a run mode: genome, transcriptome or proteins"
 lineage = snakemake.params.get("lineage_path")
+download = snakemake.params.get("download_path")
 assert lineage is not None, "please input the path to a lineage for busco assessment"
 
 # busco does not allow you to direct output location: handle this by moving output
@@ -24,7 +25,7 @@ out_name = "btemp_" + snakemake.params.get("asm", "t")
 # without needing to specify *all* busco outputs as snakemake outputs
 shell(
     "busco --in {snakemake.input[1]} --out {out_name} --force --offline"
-    " --cpu {snakemake.threads} --mode {mode} --lineage {lineage} --download_path {snakemake.input[0]} "
+    " --cpu {snakemake.threads} --mode {mode} --lineage {lineage} --download_path {download} "
     " {extra} {log}"
 )
 
