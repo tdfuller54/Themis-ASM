@@ -177,35 +177,35 @@
   {
     "mem" : "200000",
     "ntasks-per-node" : "{threads}",
-    "stdout" : "logs/{rule}.stdout",
+    "stdout" : "logs/{wildcards.first}_{wildcards.second}/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "dotplot" :
   {
     "mem" : "25000",
-    "stdout" : "logs/{rule}.stdout",
+    "stdout" : "logs/{wildcards.C}/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "circos_plot" :
   {
     "mem" : "25000",
-    "stdout" : "logs/{rule}.stdout",
+    "stdout" : "logs/{wildcards.C}/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "variant_sizes" :
   {
     "mem" : "10000",
-    "stdout" : "logs/{rule}.stdout",
+    "stdout" : "logs/{wildcards.C}/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "variant_size_histos" :
   {
     "mem" : "10000",
-    "stdout" : "logs/{rule}.stdout",
+    "stdout" : "logs/{wildcards.C}/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
