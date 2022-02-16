@@ -128,8 +128,8 @@ chromMax = tapply(alignments$refEnd, alignments$refID, max)
 
 # make new ref alignments for dot plot
 if(length(levels(alignments$refID)) > 1){
-  alignments$refStart2 = alignments$refStart + sapply(as.character(alignments$refID), function(x) ifelse(x == names((chromMax))[1], 0, cumsum(as.numeric(chromMax))[match(x, names(chromMax)) - 1]) )
-  alignments$refEnd2 = alignments$refEnd +     sapply(as.character(alignments$refID), function(x) ifelse(x == names((chromMax))[1], 0, cumsum(as.numeric(chromMax))[match(x, names(chromMax)) - 1]) )
+alignments$refStart2 = alignments$refStart + sapply(as.character(alignments$refID), function(x) ifelse(x == names((chromMax[!is.na(chromMax)]))[1], 0, cumsum(as.numeric(chromMax[!is.na(chromMax)]))[match(x, names(chromMax[!is.na(chromMax)])) - 1]) )
+alignments$refEnd2 = alignments$refEnd +     sapply(as.character(alignments$refID), function(x) ifelse(x == names((chromMax[!is.na(chromMax)]))[1], 0, cumsum(as.numeric(chromMax[!is.na(chromMax)]))[match(x, names(chromMax[!is.na(chromMax)])) - 1]) )
 } else {
   alignments$refStart2 = alignments$refStart
   alignments$refEnd2 = alignments$refEnd
@@ -226,8 +226,8 @@ if (opt$similarity) {
         )
       )
     ) +
-    scale_x_continuous(breaks = cumsum(as.numeric(chromMax)),
-                       labels = levels(alignments$refID)) +
+    scale_x_continuous(breaks = cumsum(as.numeric(chromMax[!is.na(chromMax)])),
+                       labels = unique(alignments$refID)) +
     theme_bw() +
     theme(text = element_text(size = 8)) +
     theme(
@@ -271,8 +271,8 @@ if (opt$similarity) {
         round(lenAln / 1000, 1)
       )
     )) +
-    scale_x_continuous(breaks = cumsum(chromMax),
-                       labels = levels(alignments$refID)) +
+    scale_x_continuous(breaks = cumsum(as.numeric(chromMax[!is.na(chromMax)])),
+                       labels = unique(alignments$refID)) +
     theme_bw() +
     theme(text = element_text(size = 8)) +
     theme(

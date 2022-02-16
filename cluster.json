@@ -175,7 +175,7 @@
 
   "minimap_align" :
   {
-    "mem" : "100000",
+    "mem" : "200000",
     "ntasks-per-node" : "{threads}",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"

@@ -84,10 +84,11 @@ rule dotplot:
     conda:
         "../envs/dotplotly.yaml"
     params:
-        prefix = lambda wildcards : wildcards.C
+        prefix = lambda wildcards : wildcards.C,
+        min_alignment_length = 5000
     shell:
         """
-        Rscript {workflow.basedir}/scripts/pafDotPlotly.R -i {input} -o {params.prefix} -v -l -s
+        Rscript {workflow.basedir}/scripts/pafDotPlotly.R -i {input} -o {params.prefix} -m {params.min_alignment_length} -v -l -s
         mv {params.prefix}.png {output.png}
         mv {params.prefix}.html {output.int}
         """
