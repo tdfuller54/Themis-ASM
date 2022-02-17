@@ -45,7 +45,9 @@
   "align_reads":
   {
     "mem" : "17000",
-    "ntasks-per-node" : "{threads}"
+    "ntasks-per-node" : "{threads}",
+    "stdout" : "logs/{wildcards.asm}/{rule}_{wildcards.sample}.stdout",
+    "jobname" : "{rule}"
   },
 
   "merge_bams":
@@ -124,6 +126,13 @@
   "download_busco":
   {
     "mem" : "15000",
+    "stdout" : "logs/{rule}.stdout",
+    "jobname" : "{rule}"
+  },
+
+  "git_submodule":
+  {
+    "mem" : "5000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },

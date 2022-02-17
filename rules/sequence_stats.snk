@@ -39,7 +39,7 @@ rule align_reads:
     shell:
         """
         bwa mem -R '@RG\\tID:{wildcards.sample}\\tSM:{wildcards.sample}\\tPL:ILLUMINA' -t {threads} -M {input.fasta} {input.fq1} {input.fq2} | samtools sort -o {output}  - >> {log} 2>&1
-        samtools index {output}
+        samtools index -c {output}
         """
 
 rule merge_bams:
@@ -47,14 +47,14 @@ rule merge_bams:
         expand("mapped/{{asm}}/{sample}.bam", sample=config["samples"])
     output:
         "mapped/{asm}/merged.bam",
-        "mapped/{asm}/merged.bam.bai"
+        "mapped/{asm}/merged.bam.csi"
     threads: 8
     conda:
         "../envs/base.yaml"
     shell:
         """
         samtools merge -@ {threads} {output[0]} {input}
-        samtools index {output[0]}
+        samtools index -c {output[0]}
         """
 
 
@@ -62,7 +62,7 @@ rule freebayes:
     input:
         ref="fastas/{asm}.fa",
         samples="mapped/{asm}/merged.bam",
-        indexes="mapped/{asm}/merged.bam.bai"
+        indexes="mapped/{asm}/merged.bam.csi"
     output:
         "calls/{asm}/merged_freebayes.vcf"
     log:

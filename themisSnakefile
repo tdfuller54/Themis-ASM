@@ -17,6 +17,8 @@ localrules: organize, move_kplots, package_for_distrib
 os.makedirs("fastas", exist_ok=True)
 os.makedirs("logs", exist_ok=True)
 os.makedirs("mapped", exist_ok=True)
+for i in config["assembly"].keys():
+    os.makedirs("logs/" + i, exist_ok=True)
 
 finalSummary = ["final/summary_table.tab"]
 pcombis = []
@@ -24,6 +26,8 @@ if len(config["assembly"].keys()) > 1:
     finalSummary.extend(["final/combined_frc_plot.png", "final/combined_ngx_plot.png"])
     # Adding iterations of dotplots
     pcombis = [c[0] + "_" + c[1] for c in list(itertools.combinations(config["assembly"].keys(), 2))]
+    for i in pcombis:
+        os.makedirs("logs/" + i, exist_ok=True)
     finalSummary.extend(expand("final/{C}/plot{C}.png", C=pcombis))
     finalSummary.extend(expand("final/{C}/vars{C}.log_all_sizes.png", C=pcombis))
     finalSummary.extend(expand("final/{C}/circos_plot/circos.svg", C=pcombis))
