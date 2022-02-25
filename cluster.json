@@ -68,14 +68,14 @@
 
   "frc_align":
   {
-    "mem" : "15000",
+    "mem" : "50000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },
 
   "lumpy":
   {
-    "mem" : "65000",
+    "mem" : "120000",
     "stdout" : "logs/{rule}.stdout",
     "jobname" : "{rule}"
   },
