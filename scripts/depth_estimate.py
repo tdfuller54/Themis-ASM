@@ -44,13 +44,11 @@ sum = 0
 list_chrs, list_sizes = get_chromosomes_names(bam)
 
 print("Found {} chromosomes to count".format(len(list_chrs)))
-asmsize = 0
+
 for chr, size in zip(list_chrs, list_sizes):
     sum += count_depth(chr, size, threshold, bam)
-    asmsize += size
     print(f'Finished with chr: {chr}. {size} {sum}')
-per_cov= (sum/asmsize)*100
+
 print(f'Total bases: {sum}')
 with open(snakemake.output["samdepth"], 'w') as final:
-    final.write(f'bp at {threshold} depth\tasm_size\tPercent at {threshold} depth\n')
-    final.write(f'{sum}\t{asmsize}\t{per_cov}\n')
+    final.write(f'{sum}\n')
