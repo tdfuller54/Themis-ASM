@@ -25,20 +25,31 @@ for i, v in enumerate(alist):
 
 df = pandas.DataFrame(data)
 df = df.sort_values(by=['asm', 'len'], ascending=(True, False))
+df.reset_index(drop=True, inplace=True)
 # Lazy implementation: assuming largest assembly is correct here!
 # TODO: allow user input for max assembly size instead
 largestctg = df['len'].max()
 asmsize = 0
 NGX = list()
-for k, g in df.groupby(['asm']):
-    if g['len'].sum() > asmsize:
-        asmsize = g['len'].sum()
-    temp = [0.0]
-    for i in range(1,len(g)):
-        temp.append(temp[i-1] + (g.iat[i, 1] / asmsize * 100))
+nlist = []
+asm = []
+for k, g in df.groupby(['asm'], sort=False):
+    asmsize = g['len'].sum()
+    name = g['asm'].unique()
+    print(f'{name} asm is {asmsize}bp')
+    temp = []
+    nlength = 0
+    for i in range(0,len(g)):
+        ngx = (nlength + g.iat[i, 1]) / asmsize * 100
+        temp.append(ngx)
+        nlength = nlength + g.iat[i, 1]
+        nlist.append(nlength)
+        asm.append(asmsize)
     NGX.extend(temp)
 
 df = df.assign(NGX = NGX)
+df = df.assign(nlength = nlist)
+df = df.assign(asmsize = asm)
 
 colors = [ '#bd2309', '#bbb12d', '#1480fa', '#14fa2f', '#000000',
           '#faf214', '#2edfea', '#ea2ec4', '#ea2e40', '#cdcdcd',
