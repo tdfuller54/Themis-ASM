@@ -35,7 +35,7 @@ def parse_user_input():
                         required=True, type=str,
                         )
     parser.add_argument('-m', '--minimum',
-                        help="Optional integer parameter to filter minimum alignment lengths [0.05 of total assembly size]",
+                        help="Optional integer parameter to filter minimum alignment lengths [0.05 of chromosome size]",
                         default=-1, type=int,
                         )
     parser.add_argument('-c', '--maxchr',
@@ -332,12 +332,15 @@ class KaryotypeFile:
                 else:
                     continue
 
+                if target.tag in self.targets_to_plot:
+                    self.ideogramList.append(f'{target.tag}:{target.start}-{target.end}')
+                    
                 queries_aligned = []
                 if target.name not in self.algnDict.keys():
                     continue
                 for aln in self.algnDict[target.name]:
                     lines += 1
-                    if aln.length < min_align_length :
+                    if aln.length < min_align_length:
                         skips += 1
                         continue
                     #
@@ -364,7 +367,6 @@ class KaryotypeFile:
                     else :
                         #print(aln.T_start, aln.T_end) # DEBUG
                         continue
-                self.ideogramList.append(f'{target.tag}:{target.start}-{target.end}')
                 logging.debug(f'Skipped {skips} out of {lines} lines in alignment of target {target.name}')
 
 
