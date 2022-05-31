@@ -65,6 +65,7 @@ for k, g in df.groupby(['asm']):
     i += 1
 
 ax.vlines(x=50.0, ymin=0, ymax=largestctg, linestyles='dashed')
+plt.xlabel("X")
 plt.legend(loc='best')
 plt.tight_layout()
 plt.savefig(snakemake.output["plot"], bbox_inches='tight')
