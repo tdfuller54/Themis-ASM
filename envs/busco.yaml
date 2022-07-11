@@ -6,4 +6,4 @@ channels:
   - defaults
 dependencies:
   - python=3.7
-  - busco
+  - busco=5.3.2
