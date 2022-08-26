@@ -159,7 +159,7 @@ rule circos_plot:
         "final/{C}/circos_plot/circos.svg",
         "final/{C}/circos_plot/circos.png",
     params:
-        minimum = -1,
+        minimum = 100000,
         dir = "final/{C}/circos_plot",
         maxchr = 10,
         debug = '',
