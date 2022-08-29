@@ -166,6 +166,8 @@ rule circos_plot:
         wc = lambda wildcards : wildcards.C.split('_'),
     conda:
         "../envs/circos.yaml"
+    log:
+        "logs/{C}/circos_plot.log"
     shell:
         """
         cd $CONDA_PREFIX ;
@@ -175,7 +177,7 @@ rule circos_plot:
             ln -s libwebp.so.7 libwebp.so.6
         fi;
         cd {workflow.basedir} ;
-        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {params.dir} -c {params.maxchr} -m {params.minimum} {params.debug}
+        python {workflow.basedir}/scripts/pafCircosPlotter.py -p {input.paf} -r fastas/{params.wc[0]}.fa -q fastas/{params.wc[1]}.fa -o {params.dir} -c {params.maxchr} -m {params.minimum} {params.debug} &> {log}
         """
 
 rule pdfs_finished:
