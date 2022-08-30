@@ -6,11 +6,4 @@ channels:
   - defaults
 dependencies:
   - python=3.7
-  - perl-math-round
-  - perl-statistics-basic
-  - perl-math-vecstat
-  - perl-set-intspan
-  - perl-params-validate
-  - perl-math-bezier
-  - perl-gd
   - circos
